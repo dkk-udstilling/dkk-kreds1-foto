@@ -29,6 +29,7 @@ const i18n = {
     da: {
         nav1: "Hundeejer", nav2: "Opdrætter", nav3: "Aktiviteter",
         nav4: "Udstilling", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", nav8: "Uddannelser", nav_shop: "Shop", login: "Login",
+        intro_subtitle: "Udstilling og Fotografering",
         intro_title: "Forespørgsel vedrørende fotografering af dine hunde til DKK Kreds 1",
         intro_p1: "Kære hundeejer,",
         intro_p2: "Vi skriver til dig i samarbejde med udstillingsudvalget i DKK Kreds 1.",
@@ -54,6 +55,7 @@ const i18n = {
     en: {
         nav1: "Dog Owner", nav2: "Breeder", nav3: "Activities",
         nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact", nav7: "Become a member", nav8: "Education", nav_shop: "Shop", login: "Login",
+        intro_subtitle: "Exhibition and Photography",
         intro_title: "Inquiry regarding photography of your dogs for DKK District 1",
         intro_p1: "Dear dog owner,",
         intro_p2: "We are writing to you in collaboration with the exhibition committee of DKK District 1.",
@@ -323,7 +325,6 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     }
 
     alertBox.classList.add('hidden');
-    // Updaterer btn tekst fra sprogfilen
     btn.innerHTML = `<svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> <span data-i18n="btn_sending">${i18n[currentLang].btn_sending}</span>`;
     btn.disabled = true;
 
