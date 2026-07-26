@@ -55,8 +55,14 @@
     background-color: #fef2f2;
 }
 
+/* Styling for the checkbox specifically when invalid */
+input[type="checkbox"].is-invalid {
+    outline: 2px solid #ef4444;
+    outline-offset: 2px;
+}
+
 /* Shake kun hvis tvunget frem (ved submit-fejl) */
-.floating-input.shake {
+.shake {
     animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
 }
 
