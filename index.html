@@ -34,10 +34,10 @@
 </head>
 <body class="bg-white text-gray-800 overflow-x-hidden antialiased">
 
-    <!-- TOP BAR (ICONS & LINKS) -->
+    <!-- TOP BAR -->
     <div class="relative flex mx-auto lg:max-w-screen-2xl pt-5 px-5">
         <div class="flex justify-between w-full items-center">
-            <div id="expand-menu-svg" class="cursor-pointer flex gap-4 items-center group">
+            <div class="cursor-pointer flex gap-4 items-center group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="22" viewBox="0 0 28 21.609" class="group-hover:opacity-70 transition">
                   <g transform="translate(-146.5 -10.5)">
                     <line x2="28" transform="translate(146.5 21.059)" fill="none" stroke="#de0b25" stroke-width="2"></line>
@@ -49,7 +49,6 @@
             </div>
             
             <ul class="text-gray-800 text-xs flex gap-7 items-center font-bold">
-                <!-- SSO LOGIN LINK UPDATED -->
                 <li class="hidden md:block hover:text-dkkRed transition">
                     <a href="https://www.dkk.dk/sso/login/request/b362ed7c-c4ba-41b4-998a-2973dd2ac627?RelayState=https://www.dkk.dk/hundeuniversitetet/start" class="flex items-center gap-2">
                         <svg width="24" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,7 +65,6 @@
                             <g transform="translate(-2070.377 -559.827)">
                                 <path d="M2070.877,572.855a12.528,12.528,0,1,1,12.528,12.527,12.528,12.528,0,0,1-12.528-12.527Z" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
                                 <path d="M2184.218,645.369h-.034c-4.287.021-4.122,4-4.122,4.6,0,1.326.4,5.714,4.122,5.741h.034c3.725-.027,4.122-4.415,4.122-5.741,0-.6.165-4.579,4.122-4.6Z" transform="translate(-100.804 -78.515)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
-                                <path d="M2184.184,645.369h.034c4.287.021,4.122,4,4.122,4.6,0,1.326-.4,5.714-4.122,5.741h-.034c-3.725-.027-4.122-4.415-4.122-5.741,0-.6-.165-4.579,4.122-4.6Z" transform="translate(-100.804 -78.515)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
                                 <path d="M2134.82,776.807a12.481,12.481,0,0,0,8.238-3.09V772.1a4.436,4.436,0,0,0-4.437-4.436h-1.307a3.492,3.492,0,0,1-2.485.955h-.034a3.491,3.491,0,0,1-2.485-.955H2131a4.436,4.436,0,0,0-4.436,4.436v1.6a12.479,12.479,0,0,0,8.253,3.1Z" transform="translate(-51.416 -191.425)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
                             </g>
                         </svg>
@@ -92,7 +90,7 @@
                                 </g>
                             </g>
                         </svg>
-                        Shop
+                        <span data-i18n="nav_shop">Shop</span>
                     </a>
                 </li>
                 <li>
@@ -149,31 +147,25 @@
         </div>
     </div>
 
-    <!-- HERO SECTION -->
-    <div class="mx-auto lg:max-w-screen-2xl px-5 pt-0 lg:pt-10 pb-10">
-        <div class="md:grid grid-cols-2 gap-x-6 items-stretch">
-            
-            <div class="mt-5">
-                <div class="h-full relative overflow-hidden fade-in-up shadow-sm">
-                    <img src="https://www.dkk.dk/uploads/images/_855x600_crop_center-center_100_none/749314/Hundeuniversitetet.webp" alt="Hundemodel" class="object-cover object-center w-full h-full hover:scale-105 transition duration-500">
-                </div>
-            </div>
-
-            <div class="mt-5 h-full flex flex-col justify-center fade-in-up" style="animation-delay: 0.1s;">
-                <div class="bg-dkkSand50 p-10 h-full flex flex-col justify-center border-l-4 border-dkkRed hover:bg-[#c4bdac] transition duration-300">
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#35342d] mb-4" data-i18n="hero_title">Ansøgning: Hundemodel</h1>
-                    <p class="text-lg text-gray-700 font-medium" data-i18n="hero_text">
-                        Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? <br><br> Udfyld formularen sikkert herunder og lad din bedste ven komme i betragtning!
-                    </p>
-                    <svg width="26.205" height="26.205" viewBox="0 0 26.205 26.205" class="h-8 w-8 mt-6">
-                        <g transform="translate(-1701.291 -350.337)">
-                            <path d="M3686.086,57.337h26.2" transform="translate(-1984.795 306.102)" fill="none" stroke="#de0b25" stroke-width="3"></path>
-                            <path d="M0,0H26.2" transform="translate(1714.394 350.337) rotate(90)" fill="none" stroke="#de0b25" stroke-width="3"></path>
-                        </g>
-                    </svg>
-                </div>
-            </div>
-            
+    <!-- INTRO SECTION (REPLACING HERO) -->
+    <div class="max-w-screen-lg mx-auto px-5 pt-10 pb-5 fade-in-up">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-[#35342d] mb-6 leading-tight" data-i18n="intro_title">
+            Forespørgsel vedrørende fotografering af dine hunde til DKK Kreds 1
+        </h1>
+        <div class="text-gray-700 text-[1.05rem] space-y-5 font-medium leading-relaxed">
+            <p data-i18n="intro_p1">Kære hundeejer,</p>
+            <p data-i18n="intro_p2">Vi skriver til dig i samarbejde med udstillingsudvalget i DKK Kreds 1.</p>
+            <p data-i18n="intro_p3">I forbindelse med markedsføringen af nye udstillinger er vi i øjeblikket på udkig efter særlige hunderacer, der kan indgå i kampagnematerialet. Vi har med stor interesse bemærket dine smukke hunde, og vi vil i den anledning høre, om du kunne være interesseret i at lade dem medvirke i en professionel fotografering.</p>
+            <p data-i18n="intro_p4">For at opnå de bedst mulige billeder vil det være en fordel, hvis hundene er trygge ved situationen og eventuelt har mulighed for at udføre små tricks. Det er ikke et krav, at de kan sidde stille uden snor, men det vil være en stor bonus, hvis det kan lade sig gøre.</p>
+            <p data-i18n="intro_p5">Vi gør opmærksom på, at fotograferingerne på nuværende tidspunkt udelukkende vil foregå på udvalgte lokationer på Sjælland.</p>
+            <p data-i18n="intro_p6">Såfremt dette har fanget din interesse, beder vi dig venligst udfylde formularen herunder. Her bedes du angive dine kontaktoplysninger, lidt information om dine hunde og deres færdigheder, samt afslutningsvis en kort beskrivelse af dig selv.</p>
+            <p data-i18n="intro_p7">Vi håber meget på at høre fra dig.</p>
+            <p data-i18n="intro_p8">Med venlig hilsen,<br>I samarbejde med Udstillingsudvalget, DKK Kreds 1</p>
+        </div>
+        
+        <!-- Info om data / Data collected banner -->
+        <div class="mt-10 bg-blue-50 border-l-4 border-blue-500 p-5 text-sm text-blue-800 shadow-sm rounded-r-md" data-i18n="data_info">
+            <strong>Information om dataindsamling:</strong> De oplysninger du indtaster her, sendes sikkert og bruges udelukkende til at vurdere dit match som hundemodel for DKK Kreds 1. Data deles ikke med tredjepart uden dit samtykke.
         </div>
     </div>
 
@@ -194,15 +186,15 @@
                     <h2 class="text-2xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-8" data-i18n="owner_title">1. Ejerinformation</h2>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="floating-input-group col-span-2">
+                        <div class="floating-input-group col-span-2 md:col-span-1">
                             <input type="text" id="ownerName" required placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_name">Fulde navn</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
-                        <div class="floating-input-group col-span-2">
+                        <div class="floating-input-group col-span-2 md:col-span-1">
                             <input type="text" id="ownerAddress" required placeholder=" " class="floating-input track-input">
-                            <label class="floating-label" data-i18n="f_address">Fulde Adresse</label>
+                            <label class="floating-label" data-i18n="f_address">Postnr. og By</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
@@ -228,13 +220,13 @@
                             <input type="text" id="dkkMember" placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_dkk">DKK Medlemsnummer (Valgfrit)</label>
                         </div>
+
+                        <div class="floating-input-group col-span-2">
+                            <textarea id="ownerDescription" placeholder=" " class="floating-input track-input h-32 resize-none"></textarea>
+                            <label class="floating-label" data-i18n="f_desc">Kort beskrivelse af dig selv</label>
+                        </div>
                     </div>
                 </section>
-
-                <!-- DKK Image divider -->
-                <div class="my-8 h-48 relative overflow-hidden shadow-sm">
-                    <img src="https://www.dkk.dk/uploads/images/16_9/_800x400_crop_center-center_100_none/754982/150082_tl_01__JB26424.webp" alt="Dog Model" class="object-cover object-center w-full h-full">
-                </div>
 
                 <!-- DOG INFO -->
                 <section>
@@ -282,8 +274,8 @@
         <div class="mx-auto lg:max-w-screen-lg px-5">
             <div class="grid lg:grid-cols-2 gap-x-10">
                 <div class="pb-5">
-                    <h4 class="font-bold text-lg text-gray-800">Kontakt DKK</h4>
-                    <p class="text-sm pt-3 text-gray-700 leading-relaxed">
+                    <h4 class="font-bold text-lg text-gray-800" data-i18n="footer_contact">Kontakt DKK</h4>
+                    <p class="text-sm pt-3 text-gray-700 leading-relaxed" data-i18n="footer_contact_info">
                         Dansk Kennel Klub<br>
                         Parkvej 1 <br>
                         2680 Solrød Strand<br>
@@ -293,8 +285,8 @@
                     </p>
                 </div>
                 <div class="pb-5">
-                    <h4 class="font-bold text-lg text-gray-800">Bank</h4>
-                    <p class="text-sm text-gray-700 pt-3 leading-relaxed">
+                    <h4 class="font-bold text-lg text-gray-800" data-i18n="footer_bank">Bank</h4>
+                    <p class="text-sm text-gray-700 pt-3 leading-relaxed" data-i18n="footer_bank_info">
                         <strong>Betalinger til Dansk Kennel Klub</strong><br>
                         <strong>Reg. nr.:</strong> 7316 Konto: 0001089500<br>
                         <strong>IBAN-nr:</strong> DK0973160001089500<br>
@@ -304,21 +296,21 @@
                 
                 <div class="col-span-1 lg:col-span-2 pt-6">
                     <a href="https://www.hundeweb.dk" class="link-pluss">
-                        <span>Min side</span>
+                        <span data-i18n="footer_mypage">Min side</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826">
                             <path d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="1"></path>
                             <path d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="1"></path>
                         </svg>
                     </a>
                     <a href="https://www.dkk.dk/om-dkk/kontakt/presse" class="link-pluss">
-                        <span>Presse</span>
+                        <span data-i18n="footer_press">Presse</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826">
                             <path d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="1"></path>
                             <path d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="1"></path>
                         </svg>
                     </a>
                     <a href="https://www.dkk.dk/cookie" class="link-pluss">
-                        <span>Privatlivspolitik</span>
+                        <span data-i18n="footer_privacy">Privatlivspolitik</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826">
                             <path d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="1"></path>
                             <path d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="1"></path>
