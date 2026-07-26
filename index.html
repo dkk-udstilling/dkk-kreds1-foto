@@ -29,6 +29,9 @@
         }
     </script>
     
+    <!-- IMask for Phone Input -->
+    <script src="https://unpkg.com/imask"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -159,12 +162,12 @@
             
             <div id="errorAlert" class="hidden bg-red-50 border-l-4 border-dkkRed text-dkkRed p-4 mx-10 mt-10 rounded transition" role="alert">
                 <p class="font-bold" data-i18n="error_title">Hov, der mangler noget!</p>
-                <p class="text-sm" data-i18n="error_desc">Tjek de røde felter. Husk at e-mail skal være gyldig, og telefonnummeret skal være korrekt.</p>
+                <p class="text-sm" data-i18n="error_desc">Tjek de røde felter. Husk at e-mail skal være gyldig, telefonnummeret skal være korrekt, og privatlivspolitikken skal accepteres.</p>
             </div>
 
             <form id="dkkForm" class="p-10 space-y-12" autocomplete="off" novalidate>
                 
-                <!-- OWNER INFO -->
+                <!-- 1. OWNER INFO -->
                 <section>
                     <h2 class="text-2xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-8" data-i18n="owner_title">1. Ejerinformation</h2>
                     
@@ -188,18 +191,29 @@
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
+                        <!-- Masked Phone Input -->
                         <div class="floating-input-group relative">
-                            <input type="tel" id="ownerPhone" required placeholder=" " class="floating-input track-input">
+                            <input type="tel" id="ownerPhone" required placeholder=" " class="floating-input track-input" dir="ltr">
                             <label class="floating-label" data-i18n="f_phone">Telefonnummer</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
-                        <div class="floating-input-group col-span-2 md:col-span-1">
-                            <input type="text" id="ownerSocials" placeholder=" " class="floating-input track-input">
-                            <label class="floating-label" data-i18n="f_socials">Sociale Medier (f.eks. Instagram)</label>
+                        <!-- Social Media Dynamic Fields -->
+                        <div class="col-span-2">
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-sm font-semibold text-gray-700" data-i18n="f_socials">Sociale Medier</label>
+                                <span id="socialCountDisplay" class="text-sm font-bold text-gray-400">1/5</span>
+                            </div>
+                            <div id="socialsContainer" class="space-y-4">
+                                <!-- Socials injected by JS -->
+                            </div>
+                            <button type="button" id="addSocialBtn" class="mt-4 w-full py-3 bg-gray-50 text-gray-600 font-bold hover:bg-gray-100 transition duration-200 flex items-center justify-center gap-2 border border-dashed border-gray-300 rounded hover:border-gray-400">
+                                <span data-i18n="btn_add_social">Tilføj profil</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+                            </button>
                         </div>
 
-                        <div class="floating-input-group col-span-2 md:col-span-1">
+                        <div class="floating-input-group col-span-2">
                             <input type="text" id="dkkMember" placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_dkk">DKK Medlemsnummer (Valgfrit)</label>
                         </div>
@@ -211,10 +225,11 @@
                     </div>
                 </section>
 
-                <!-- DOG INFO -->
+                <!-- 2. DOG INFO -->
                 <section>
-                    <div class="border-b border-gray-200 pb-3 mb-8">
+                    <div class="border-b border-gray-200 pb-3 mb-8 flex justify-between items-center">
                         <h2 class="text-2xl font-bold text-gray-800" data-i18n="dog_title">2. Hundeinformation</h2>
+                        <span id="dogCountDisplay" class="text-sm font-bold text-gray-400">1/6</span>
                     </div>
                     
                     <div id="dogsContainer" class="space-y-8">
