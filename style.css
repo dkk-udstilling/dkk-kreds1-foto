@@ -12,7 +12,7 @@
     font-size: 1rem;
     color: #1f2937;
     background-color: #f9fafb;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease-in-out;
     outline: none;
 }
 
@@ -40,18 +40,23 @@
     font-weight: 600;
 }
 
-/* Validation Styling */
-.floating-input.valid {
+/* FLUID VALIDATION STYLING */
+.floating-input.is-valid {
     border-color: #10b981;
     background-color: #f0fdf4;
 }
-.floating-input.valid ~ .valid-icon {
-    display: block;
+
+.floating-input.is-valid:focus {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
-.floating-input.invalid {
+.floating-input.is-invalid {
     border-color: #ef4444;
     background-color: #fef2f2;
+}
+
+/* Shake kun hvis tvunget frem (ved submit-fejl) */
+.floating-input.shake {
     animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
 }
 
