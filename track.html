@@ -4,41 +4,46 @@
     <meta charset="UTF-8">
     <title>Omstiller...</title>
 </head>
-<body style="background-color: #f4f5f7; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial, sans-serif;">
-    <p>Åbner sikker formular...</p>
+<body style="background-color: #f7f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    
+    <div style="text-align: center; color: #374151;">
+        <svg style="animation: spin 1s linear infinite; height: 40px; width: 40px; color: #de0b25; margin: 0 auto 15px auto;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle style="opacity: 0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path style="opacity: 0.75;" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+        <p>Åbner sikker formular...</p>
+    </div>
+
+    <style>
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
 
     <script>
-        // HUSK AT DETTE SKAL VÆRE DET SAMME HEMMELIGE NAVN SOM I SCRIPT.JS!
         const NTFY_TOPIC = "dkkkreds1_fotoshoot_secret_98765"; 
         
-        // Finder ud af hvem e-mailen er sendt til via linket (f.eks. ?user=Line)
         const urlParams = new URLSearchParams(window.location.search);
-        let userName = urlParams.get('user') || "En ukendt modtager";
+        let userNameRaw = urlParams.get('user') || "En ukendt modtager";
+        let userNameClean = userNameRaw.replace(/_/g, ' ');
 
-        // Gør klar til at sende tracking-data
         async function trackAndRedirect() {
             try {
-                // Hent IP for at vide hvor i landet de befinder sig
-                let res = await fetch('https://api.ipify.org?format=json');
-                let data = await res.json();
-                let userIP = data.ip;
-
-                // Send besked til din telefon
+                // Send besked til ntfy (Uden IP, så det går meget hurtigere)
                 await fetch(`https://ntfy.sh/`, {
                     method: 'POST',
                     body: JSON.stringify({
                         topic: NTFY_TOPIC,
-                        title: `📧 E-mail Klikket!`,
-                        message: `${userName} har netop klikket på linket i e-mailen og er nu på vej ind på formularen!\nIP: ${userIP}\nTidspunkt: ${new Date().toLocaleString('da-DK')}`,
-                        tags: ['email', 'bell']
+                        title: `🖱️ Link Klikket!`,
+                        message: `${userNameClean} har netop klikket på linket i e-mailen og er på vej til formularen!`,
+                        tags: ['mouse', 'bell']
                     }),
                     headers: { 'Content-Type': 'application/json' }
                 });
             } catch (err) {
                 console.error(err);
             } finally {
-                // Sender modtageren videre til selve DKK formularen med det samme
-                window.location.href = "index.html";
+                // Sender modtageren videre til selve DKK formularen
+                // Vi tilføjer ?user= igen, så din index.html også ved hvem det er
+                window.location.href = `index.html?user=${userNameRaw}`;
             }
         }
 
