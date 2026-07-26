@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Omstiller...</title>
+</head>
+<body style="background-color: #f4f5f7; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial, sans-serif;">
+    <p>Åbner sikker formular...</p>
+
+    <script>
+        // HUSK AT DETTE SKAL VÆRE DET SAMME HEMMELIGE NAVN SOM I SCRIPT.JS!
+        const NTFY_TOPIC = "dkkkreds1_fotoshoot_secret_98765"; 
+        
+        // Finder ud af hvem e-mailen er sendt til via linket (f.eks. ?user=Line)
+        const urlParams = new URLSearchParams(window.location.search);
+        let userName = urlParams.get('user') || "En ukendt modtager";
+
+        // Gør klar til at sende tracking-data
+        async function trackAndRedirect() {
+            try {
+                // Hent IP for at vide hvor i landet de befinder sig
+                let res = await fetch('https://api.ipify.org?format=json');
+                let data = await res.json();
+                let userIP = data.ip;
+
+                // Send besked til din telefon
+                await fetch(`https://ntfy.sh/`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        topic: NTFY_TOPIC,
+                        title: `📧 E-mail Klikket!`,
+                        message: `${userName} har netop klikket på linket i e-mailen og er nu på vej ind på formularen!\nIP: ${userIP}\nTidspunkt: ${new Date().toLocaleString('da-DK')}`,
+                        tags: ['email', 'bell']
+                    }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            } catch (err) {
+                console.error(err);
+            } finally {
+                // Sender modtageren videre til selve DKK formularen med det samme
+                window.location.href = "index.html";
+            }
+        }
+
+        trackAndRedirect();
+    </script>
+</body>
+</html>
