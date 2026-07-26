@@ -40,7 +40,7 @@ const i18n = {
         f_dkk: "DKK Medlemsnummer (Valgfrit)", f_desc: "Kort beskrivelse af dig selv",
         dog_title: "2. Hundeinformation", d_name: "Hundens navn og Race", d_age: "Hundens Alder", 
         d_skills: "Tricks og Færdigheder", d_photos: "Link til billeder (Google Drev/SoMe)",
-        privacy_consent: "Jeg bekræfter hermed, at jeg accepterer behandlingen af mine personoplysninger i overensstemmelse med privatlivspolitikken.",
+        privacy_consent: "Jeg bekræfter hermed, at jeg accepterer behandlingen af mine personoplysninger i overensstemmelse med <a href='https://www.dkk.dk/english/about-dkk/organisation/politics-of-personal-data' target='_blank' class='text-dkkRed underline hover:text-red-800 font-semibold' onclick='event.stopPropagation()'>privatlivspolitikken</a>.",
         btn_add_dog: "Tilføj endnu en hund", btn_remove_dog: "Fjern hund", max_dogs_alert: "Du kan maksimalt tilføje 6 hunde.", btn_submit: "Send Ansøgning", btn_sending: "Sender...",
         success_title: "Tak for din ansøgning!", success_desc: "Dine informationer er sendt sikkert afsted til DKK Kreds 1.",
         error_title: "Hov, der mangler noget!", error_desc: "Tjek de røde felter. Husk at e-mail skal være gyldig, telefonnummeret skal være korrekt, og privatlivspolitikken skal accepteres.",
@@ -60,7 +60,7 @@ const i18n = {
         f_dkk: "DKK Member Number (Optional)", f_desc: "Short description of yourself",
         dog_title: "2. Dog Info", d_name: "Dog's Name & Breed", d_age: "Dog's Age", 
         d_skills: "Tricks & Skills", d_photos: "Link to photos (Google Drive/SoMe)",
-        privacy_consent: "I hereby confirm that I accept the processing of my personal data in accordance with the privacy policy.",
+        privacy_consent: "I hereby confirm that I accept the processing of my personal data in accordance with the <a href='https://www.dkk.dk/english/about-dkk/organisation/politics-of-personal-data' target='_blank' class='text-dkkRed underline hover:text-red-800 font-semibold' onclick='event.stopPropagation()'>privacy policy</a>.",
         btn_add_dog: "Add another dog", btn_remove_dog: "Remove dog", max_dogs_alert: "You can add a maximum of 6 dogs.", btn_submit: "Submit Application", btn_sending: "Sending...",
         success_title: "Thank you!", success_desc: "Your information has been securely sent to DKK District 1.",
         error_title: "Oops, something is missing!", error_desc: "Please check the red fields. Make sure the email is from a major provider, the phone number is valid, and you have accepted the privacy policy.",
@@ -89,7 +89,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     // Initialize IMask for phone
     const phoneEl = document.getElementById('ownerPhone');
     phoneMaskInstance = IMask(phoneEl, {
-        mask: '+00 00 00 00 00', // Template format for numbers (DK layout focus)
+        mask: '+00 00 00 00 00', // Template format for numbers
         lazy: false,             // 'false' means the mask underscores are always visible
         placeholderChar: '_'
     });
