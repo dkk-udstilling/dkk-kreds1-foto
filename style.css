@@ -105,7 +105,11 @@ input[type="checkbox"].is-invalid {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* DKK specific link styling matching Footer */
+/* DKK specific link styling matching Footer & Text */
+.dkk-text {
+    color: #111211;
+}
+
 .link-pluss {
     display: flex;
     justify-content: space-between;
