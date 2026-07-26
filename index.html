@@ -21,6 +21,7 @@
                         dkkRed: '#de0b25',
                         dkkSand: '#CCC6B6',
                         dkkSand50: 'rgba(204, 198, 182, 0.5)',
+                        'sand-30': '#f2f0eb',
                         dkkBg: '#f7f9fa',
                         textDark: '#111211'
                     }
@@ -40,19 +41,25 @@
     <!-- TOP BAR -->
     <div class="relative flex mx-auto lg:max-w-screen-2xl pt-5 px-5">
         <div class="flex justify-between w-full items-center">
-            <div class="cursor-pointer flex gap-4 items-center group">
+            <div id="expand-menu-svg" class="cursor-pointer flex gap-4 items-center group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="22" viewBox="0 0 28 21.609" class="group-hover:opacity-70 transition">
-                  <g transform="translate(-146.5 -10.5)">
-                    <line x2="28" transform="translate(146.5 21.059)" fill="none" stroke="#de0b25" stroke-width="2"></line>
-                    <line x2="28" transform="translate(146.5 11.5)" fill="none" stroke="#de0b25" stroke-width="2"></line>
-                    <line x2="28" transform="translate(146.5 31.109)" fill="none" stroke="#de0b25" stroke-width="2"></line>
+                  <g id="Group_689" data-name="Group 689" transform="translate(-146.5 -10.5)">
+                    <line id="Line_62" data-name="Line 62" x2="28" transform="translate(146.5 21.059)" fill="none" stroke="#de0b25" stroke-width="2"></line>
+                    <line id="Line_63" data-name="Line 63" x2="28" transform="translate(146.5 11.5)" fill="none" stroke="#de0b25" stroke-width="2"></line>
+                    <line id="Line_64" data-name="Line 64" x2="28" transform="translate(146.5 31.109)" fill="none" stroke="#de0b25" stroke-width="2"></line>
                   </g>
                 </svg>
-                <div class="text-xs font-bold text-gray-800 group-hover:text-dkkRed tracking-wider uppercase">MENU</div>
+                <div class="dkk-text text-xs font-bold group-hover:text-dkkRed transition tracking-wider">MENU</div>
             </div>
             
-            <ul class="text-gray-800 text-xs flex gap-7 items-center font-bold">
+            <ul class="dkk-text text-xs flex gap-7 items-center font-bold">
                 <li class="hidden md:block hover:text-dkkRed transition">
+                    <script>
+                        window.craftSamlId = 'b362ed7c-c4ba-41b4-998a-2973dd2ac627';
+                        window.keycloakUrl = 'https://www.hundeweb.dk/sso';
+                        window.keycloakRealm = 'dkk-sirius-prod';
+                        window.keycloakClientId = 'dkk-sirius-frontend';
+                    </script>
                     <a href="https://www.dkk.dk/sso/login/request/b362ed7c-c4ba-41b4-998a-2973dd2ac627?RelayState=https://www.dkk.dk/hundeuniversitetet/start" class="flex items-center gap-2">
                         <svg width="24" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 10V8C6 4.69 7 2 12 2C17 2 18 4.69 18 8V10" stroke="#E6485C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -62,38 +69,70 @@
                         <span data-i18n="login">Login</span>
                     </a>
                 </li>
+                
                 <li class="hidden md:block hover:text-dkkRed transition">
-                    <a href="https://www.hundeweb.dk" class="flex items-center gap-2">
+                    <a href="https://www.hundeweb.dk/dkk/secure/openIndex?ARTICLE_ID=6" class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26.055" height="22" viewBox="0 0 26.055 26.055">
-                            <g transform="translate(-2070.377 -559.827)">
-                                <path d="M2070.877,572.855a12.528,12.528,0,1,1,12.528,12.527,12.528,12.528,0,0,1-12.528-12.527Z" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
-                                <path d="M2184.218,645.369h-.034c-4.287.021-4.122,4-4.122,4.6,0,1.326.4,5.714,4.122,5.741h.034c3.725-.027,4.122-4.415,4.122-5.741,0-.6.165-4.579,4.122-4.6Z" transform="translate(-100.804 -78.515)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
-                                <path d="M2134.82,776.807a12.481,12.481,0,0,0,8.238-3.09V772.1a4.436,4.436,0,0,0-4.437-4.436h-1.307a3.492,3.492,0,0,1-2.485.955h-.034a3.491,3.491,0,0,1-2.485-.955H2131a4.436,4.436,0,0,0-4.436,4.436v1.6a12.479,12.479,0,0,0,8.253,3.1Z" transform="translate(-51.416 -191.425)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                            <g id="Group_754" data-name="Group 754" transform="translate(-2070.377 -559.827)">
+                                <path id="Path_357" data-name="Path 357" d="M2070.877,572.855a12.528,12.528,0,1,1,12.528,12.527,12.528,12.528,0,0,1-12.528-12.527Z" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                                <path id="Path_358" data-name="Path 358" d="M2184.218,645.369h-.034c-4.287.021-4.122,4-4.122,4.6,0,1.326.4,5.714,4.122,5.741h.034c3.725-.027,4.122-4.415,4.122-5.741,0-.6.165-4.579-4.122-4.6Z" transform="translate(-100.804 -78.515)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                                <path id="Path_359" data-name="Path 359" d="M2184.184,645.369h.034c4.287.021,4.122,4,4.122,4.6,0,1.326-.4,5.714-4.122,5.741h-.034c-3.725-.027-4.122-4.415-4.122-5.741,0-.6-.165-4.579,4.122-4.6Z" transform="translate(-100.804 -78.515)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                                <path id="Path_360" data-name="Path 360" d="M2134.82,776.807a12.481,12.481,0,0,0,8.238-3.09V772.1a4.436,4.436,0,0,0-4.437-4.436h-1.307a3.492,3.492,0,0,1-2.485.955h-.034a3.491,3.491,0,0,1-2.485-.955H2131a4.436,4.436,0,0,0-4.436,4.436v1.6a12.479,12.479,0,0,0,8.253,3.1Z" transform="translate(-51.416 -191.425)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
                             </g>
                         </svg>
                         Hundeweb
                     </a>
                 </li>
-                <li class="hidden md:block hover:text-dkkRed transition cursor-pointer" id="langSwitchBtn">
+                
+                <li class="hidden md:block cursor-pointer hover:text-dkkRed transition" id="langSwitchBtn">
                     <div class="flex items-center gap-2">
                         <svg width="22.648" height="22.648" viewBox="0 0 22.648 22.648">
-                            <path d="M271.758,333.592a11.359,11.359,0,1,0,.89,4.408A11.285,11.285,0,0,0,271.758,333.592Zm-9.975-.241V327.62a5.884,5.884,0,0,1,4.11,2.946,11.1,11.1,0,0,1,.961,1.874A16.135,16.135,0,0,1,261.783,333.351Zm5.382-.052a15.194,15.194,0,0,1,.7,4.241h-6.083V334.27a17.348,17.348,0,0,0,4.527-.688C266.6,333.5,266.885,333.4,267.165,333.3Zm.54-1.205a12.017,12.017,0,0,0-1.039-2.026,9.082,9.082,0,0,0-1.394-1.7,10.467,10.467,0,0,1,3.963,2.875A10.319,10.319,0,0,1,267.7,332.094Zm-5.921,9.636v-3.271h6.083a15.194,15.194,0,0,1-.7,4.24A17.1,17.1,0,0,0,261.783,341.73Zm5.071,1.831a11.112,11.112,0,0,1-.96,1.872,5.884,5.884,0,0,1-4.11,2.946v-5.732A16.15,16.15,0,0,1,266.854,343.561Zm-.189,2.37a12.014,12.014,0,0,0,1.039-2.025,10.337,10.337,0,0,1,1.531.846,10.466,10.466,0,0,1-3.963,2.875A9.08,9.08,0,0,0,266.665,345.931Zm5.054-7.472a10.338,10.338,0,0,1-1.918,5.569,11.232,11.232,0,0,0-1.783-.985,16.093,16.093,0,0,0,.766-4.584Zm0-.918h-2.935a16.089,16.089,0,0,0-.767-4.585,11.316,11.316,0,0,0,1.784-.983A10.336,10.336,0,0,1,271.72,337.541Zm-17.086,5.514a11.275,11.275,0,0,0-1.778.985,10.337,10.337,0,0,1-1.927-5.581h2.935A16.089,16.089,0,0,0,254.634,343.055Zm-3.705-5.514a10.337,10.337,0,0,1,1.927-5.581,11.275,11.275,0,0,0,1.778.985,16.088,16.088,0,0,0-.77,4.6Zm9.937,5.108v5.731a5.884,5.884,0,0,1-4.11-2.946,11.1,11.1,0,0,1-.958-1.866A16.107,16.107,0,0,1,260.865,342.649Zm-5.379.06a15.188,15.188,0,0,1-.7-4.25h6.083v3.272a17.338,17.338,0,0,0-4.513.691C256.06,342.509,255.769,342.605,255.486,342.709Zm-.539,1.206a12.013,12.013,0,0,0,1.035,2.016,9.075,9.075,0,0,0,1.394,1.7,10.466,10.466,0,0,1-3.954-2.864A10.283,10.283,0,0,1,254.947,343.915Zm5.918-16.3v5.731a16.106,16.106,0,0,1-5.068-.919,11.1,11.1,0,0,1,.958-1.866A5.884,5.884,0,0,1,260.865,327.62Zm-4.882,2.449a12.013,12.013,0,0,0-1.035,2.016,10.281,10.281,0,0,1-1.525-.848,10.466,10.466,0,0,1,3.954-2.864A9.081,9.081,0,0,0,255.983,330.068Zm-.5,3.223c.283.1.574.2.866.287a17.335,17.335,0,0,0,4.513.691v3.272h-6.083A15.188,15.188,0,0,1,255.486,333.291Z" transform="translate(-250 -326.676)" fill="#de0b25"></path>
+                            <path id="Path_355" data-name="Path 355" d="M271.758,333.592a11.359,11.359,0,1,0,.89,4.408A11.285,11.285,0,0,0,271.758,333.592Zm-9.975-.241V327.62a5.884,5.884,0,0,1,4.11,2.946,11.1,11.1,0,0,1,.961,1.874A16.135,16.135,0,0,1,261.783,333.351Zm5.382-.052a15.194,15.194,0,0,1,.7,4.241h-6.083V334.27a17.348,17.348,0,0,0,4.527-.688C266.6,333.5,266.885,333.4,267.165,333.3Zm.54-1.205a12.017,12.017,0,0,0-1.039-2.026,9.082,9.082,0,0,0-1.394-1.7,10.467,10.467,0,0,1,3.963,2.875A10.319,10.319,0,0,1,267.7,332.094Zm-5.921,9.636v-3.271h6.083a15.194,15.194,0,0,1-.7,4.24A17.1,17.1,0,0,0,261.783,341.73Zm5.071,1.831a11.112,11.112,0,0,1-.96,1.872,5.884,5.884,0,0,1-4.11,2.946v-5.732A16.15,16.15,0,0,1,266.854,343.561Zm-.189,2.37a12.014,12.014,0,0,0,1.039-2.025,10.337,10.337,0,0,1,1.531.846,10.466,10.466,0,0,1-3.963,2.875A9.08,9.08,0,0,0,266.665,345.931Zm5.054-7.472a10.338,10.338,0,0,1-1.918,5.569,11.232,11.232,0,0,0-1.783-.985,16.093,16.093,0,0,0,.766-4.584Zm0-.918h-2.935a16.089,16.089,0,0,0-.767-4.585,11.316,11.316,0,0,0,1.784-.983A10.336,10.336,0,0,1,271.72,337.541Zm-17.086,5.514a11.275,11.275,0,0,0-1.778.985,10.337,10.337,0,0,1-1.927-5.581h2.935A16.089,16.089,0,0,0,254.634,343.055Zm-3.705-5.514a10.337,10.337,0,0,1,1.927-5.581,11.275,11.275,0,0,0,1.778.985,16.088,16.088,0,0,0-.77,4.6Zm9.937,5.108v5.731a5.884,5.884,0,0,1-4.11-2.946,11.1,11.1,0,0,1-.958-1.866A16.107,16.107,0,0,1,260.865,342.649Zm-5.379.06a15.188,15.188,0,0,1-.7-4.25h6.083v3.272a17.338,17.338,0,0,0-4.513.691C256.06,342.509,255.769,342.605,255.486,342.709Zm-.539,1.206a12.013,12.013,0,0,0,1.035,2.016,9.075,9.075,0,0,0,1.394,1.7,10.466,10.466,0,0,1-3.954-2.864A10.283,10.283,0,0,1,254.947,343.915Zm5.918-16.3v5.731a16.106,16.106,0,0,1-5.068-.919,11.1,11.1,0,0,1,.958-1.866A5.884,5.884,0,0,1,260.865,327.62Zm-4.882,2.449a12.013,12.013,0,0,0-1.035,2.016,10.281,10.281,0,0,1-1.525-.848,10.466,10.466,0,0,1,3.954-2.864A9.081,9.081,0,0,0,255.983,330.068Zm-.5,3.223c.283.1.574.2.866.287a17.335,17.335,0,0,0,4.513.691v3.272h-6.083A15.188,15.188,0,0,1,255.486,333.291Z" transform="translate(-250 -326.676)" fill="#de0b25"></path>
                         </svg>
                         <span id="langLabel">English</span>
                     </div>
                 </li>
-                <li>
-                    <a href="https://www.dkk.dk/webshop" class="flex items-center gap-2 hover:text-dkkRed transition">
+                
+                <li class="hover:text-dkkRed transition">
+                    <a href="https://www.dkk.dk/webshop" class="flex items-center gap-2">
                         <svg width="31.728" height="22" viewBox="0 0 31.728 25.891">
-                            <g transform="translate(-1729.306 -703.934)">
-                                <g transform="translate(1730.056 704.972)">
-                                    <path d="M190.1,180.308h4.821a.964.964,0,0,1,.964.964v2.892a.964.964,0,0,1-.964.964h-27.96a.964.964,0,0,1-.964-.964v-2.892a.964.964,0,0,1,.964-.964h4.821" transform="translate(-166 -174.523)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
-                                    <path d="M196.677,180.308H188" transform="translate(-177.395 -174.523)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
-                                    <path d="M196.031,190.308l-2.159,11.863a1.928,1.928,0,0,1-1.906,1.635h-17.9a1.928,1.928,0,0,1-1.906-1.635L170,190.308" transform="translate(-168.072 -179.703)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                            <g id="Group_727" data-name="Group 727" transform="translate(-1729.306 -703.934)">
+                                <g id="Group_715" data-name="Group 715" transform="translate(1730.056 704.972)">
+                                    <path id="Path_321" data-name="Path 321" d="M190.1,180.308h4.821a.964.964,0,0,1,.964.964v2.892a.964.964,0,0,1-.964.964h-27.96a.964.964,0,0,1-.964-.964v-2.892a.964.964,0,0,1,.964-.964h4.821" transform="translate(-166 -174.523)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                                    <path id="Path_322" data-name="Path 322" d="M196.677,180.308H188" transform="translate(-177.395 -174.523)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                                    <path id="Path_323" data-name="Path 323" d="M196.031,190.308l-2.159,11.863a1.928,1.928,0,0,1-1.906,1.635h-17.9a1.928,1.928,0,0,1-1.906-1.635L170,190.308" transform="translate(-168.072 -179.703)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                                    <line id="Line_55" data-name="Line 55" y1="8.139" x2="5.3" transform="translate(6.814)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line>
+                                    <line id="Line_56" data-name="Line 56" x1="5.3" y1="8.139" transform="translate(17.792)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line>
+                                    <g id="Group_584" data-name="Group 584" transform="translate(6.246 12.492)">
+                                        <line id="Line_57" data-name="Line 57" x2="1.514" y2="8.707" transform="translate(0 0)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line>
+                                        <line id="Line_58" data-name="Line 58" y2="8.707" transform="translate(8.707 0)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line>
+                                        <line id="Line_59" data-name="Line 59" x2="0.946" y2="8.707" transform="translate(4.353 0)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line>
+                                        <line id="Line_60" data-name="Line 60" x1="1.514" y2="8.707" transform="translate(15.899 0)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line>
+                                        <line id="Line_61" data-name="Line 61" x1="0.946" y2="8.707" transform="translate(12.114 0)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></line>
+                                    </g>
                                 </g>
                             </g>
                         </svg>
                         <span data-i18n="nav_shop">Shop</span>
+                    </a>
+                </li>
+                <li class="hover:opacity-70 transition">
+                    <a href="https://www.dkk.dk/search">
+                        <svg width="22" height="22" viewBox="0 0 22 22">
+                            <defs>
+                                <clipPath id="clip-path">
+                                    <path id="Path_7" data-name="Path 7" d="M0,2.816H22v-22H0Z" transform="translate(0 19.184)" fill="none"></path>
+                                </clipPath>
+                            </defs>
+                            <g id="Group_10" data-name="Group 10" clip-path="url(#clip-path)">
+                                <g id="Group_8" data-name="Group 8" transform="translate(4.424 2.13)">
+                                    <path id="Path_5" data-name="Path 5" d="M.31.619A7.723,7.723,0,0,0,8.032-7.1,7.723,7.723,0,0,0,.31-14.827,7.723,7.723,0,0,0-7.413-7.1,7.723,7.723,0,0,0,.31.619Z" transform="translate(7.413 14.827)" fill="none" stroke="#de0b25" stroke-width="2"></path>
+                                </g>
+                                <g id="Group_9" data-name="Group 9" transform="translate(0.406 14.705)">
+                                    <path id="Path_6" data-name="Path 6" d="M.882,0l-6.89,6.89" transform="translate(6.008)" fill="none" stroke="#de0b25" stroke-width="2"></path>
+                                </g>
+                            </g>
+                        </svg>
                     </a>
                 </li>
             </ul>
@@ -102,13 +141,15 @@
 
     <!-- MAIN MENU WITH LOGO -->
     <div class="shadow-lg mb-10 bg-white sticky top-0 z-40">
-        <div class="relative flex mx-auto max-w-screen-2xl px-5 pb-6 pt-5">
+        <div id="menu-wrapper-container" class="relative flex mx-auto lg:max-w-screen-2xl px-5 z-50 pb-6 pt-5">
             <div class="flex justify-center md:justify-between w-full items-center">
-                <div class="hidden xl:flex gap-10 font-bold text-gray-700 text-[1.1rem]">
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav1">Hundeejer</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav2">Opdrætter</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav3">Aktiviteter</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav8">Uddannelser</a>
+                <div class="hidden xl:block">
+                    <div id="menu-list" class="flex md:gap-5 gap-10 font-bold text-gray-700 text-[1.1rem]">
+                        <a href="https://www.dkk.dk/hundeejer" class="hover:text-dkkRed transition" data-i18n="nav1">Hundeejer</a>
+                        <a href="https://www.dkk.dk/alle-emner/opdræt" class="hover:text-dkkRed transition" data-i18n="nav2">Opdrætter</a>
+                        <a href="https://www.dkk.dk/kurser-prover-og-traening/aktiviteter-med-din-hund" class="hover:text-dkkRed transition" data-i18n="nav3">Aktiviteter</a>
+                        <a href="https://www.dkk.dk/hundeuniversitetet/start" class="hover:text-dkkRed transition" data-i18n="nav8">Uddannelser</a>
+                    </div>
                 </div>
                 
                 <a href="https://www.dkk.dk/" class="mx-auto transform hover:scale-105 transition duration-300">
@@ -131,12 +172,62 @@
                         <path d="M33.6751 0.0959507L33.2582 4.291L33.5354 4.85555L41.5613 8.76944C42.0219 9.05283 42.0699 9.61738 41.9324 10.1373C41.1946 10.8447 41.6093 12.0719 41.1509 12.9645C40.5027 15.0397 39.3022 16.9275 37.735 18.6256C35.9801 17.1171 34.5067 14.8991 32.2454 14.946C31.4596 15.7002 31.4596 16.8806 31.3221 17.9651C30.9532 23.2937 36.3511 26.2168 39.6252 29.4702L36.8117 32.255C34.9673 31.782 33.3062 30.5547 31.5993 29.5662L28.9713 27.8212C27.3561 29.9902 25.5575 32.1145 23.5276 34H18.8697L21.7727 27.964L21.6352 27.8212C19.7908 27.8703 17.9464 27.7253 16.1937 27.964C16.5167 30.037 17.1169 32.0185 17.8547 33.9509L13.9345 33.9978C12.1796 32.3465 10.8896 30.3182 9.55161 28.3858C7.10696 29.5171 4.75398 31.7329 2.86155 33.8081L0 31.9248C0.646087 30.5547 1.57156 29.1445 2.30714 27.7253C3.32211 25.5586 4.56845 23.5302 4.84347 21.031C4.98098 19.3798 4.88931 17.6371 4.70596 16.0795C3.13876 14.194 1.10883 11.8823 1.84659 9.33622C2.2613 8.86316 2.76988 8.62663 3.36795 8.48605C4.29342 8.53291 4.93733 9.61738 5.34986 10.3247C6.18148 11.4561 6.5962 13.0627 8.02807 13.5759L21.0808 13.8593C22.2791 13.7678 23.3399 12.728 23.8485 11.6435L27.677 0L29.4319 3.96075L33.6751 0.0959507Z" fill="#1D1D1B"></path>
                     </svg>
                 </a>
+                
+                <div class="hidden xl:block">
+                    <div id="menu-list-right" class="flex gap-10 pl-5 font-bold text-gray-700 text-[1.1rem]">
+                        <a href="https://www.dkk.dk/udstillinger-og-events/deltag-i-udstillinger" class="hover:text-dkkRed transition" data-i18n="nav4">Udstillinger</a>
+                        <a href="https://www.dkk.dk/om-dkk/om-dkk" class="hover:text-dkkRed transition" data-i18n="nav5">Om DKK</a>
+                        <a href="https://www.dkk.dk/medlemskab/bliv-medlem" class="hover:text-dkkRed transition" data-i18n="nav7">Bliv medlem</a>
+                        <a href="#" id="kontact-menu" class="hover:text-dkkRed transition" data-i18n="nav6">Kontakt</a>
+                    </div>
+                </div>
+            </div>
 
-                <div class="hidden xl:flex gap-10 font-bold text-gray-700 text-[1.1rem] pl-5">
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav4">Udstilling</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav5">Om DKK</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav7">Bliv medlem</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav6">Kontakt</a>
+            <!-- HIDDEN OFFCANVAS MENUS -->
+            <div id="menu-1" class="fixed hidden flex-col top-0 left-0 min-h-full h-screen bg-[#CCC6B6]">
+                <div class="hidden absolute top-0 cursor-pointer px-5 z-20" id="collapse-menu-svg">
+                    <svg class="mt-6" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><title>close</title>
+                        <g fill="none">
+                            <path d="M38 12.82l-2.82-2.82-11.18 11.18-11.18-11.18-2.82 2.82 11.18 11.18-11.18 11.18 2.82 2.82 11.18-11.18 11.18 11.18 2.82-2.82-11.18-11.18 11.18-11.18z" fill="#de0b25"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div id="menu-items-1" class="relative hidden flex-col top-0 gap-4 pt-20 lg:pt-40 px-5">
+                    <div id="list-1" class="w-full flex flex-col max-h-[80vh] overflow-y-auto"></div>
+                    <div id="sub-menu" class="absolute z-10 top-0 left-[100%] h-screen bg-[#C6DCE0] flex pt-48">
+                        <div id="sub-menu-items" class="hidden flex flex-col px-5"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu-right" class="fixed hidden flex-col top-0 right-0 min-h-full h-screen bg-[#CCC6B6]">
+                <div id="collapse-menu-right-svg" class="hidden absolute top-0 cursor-pointer px-10 z-20">
+                    <svg class="mt-6" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><title>close</title>
+                        <g fill="none">
+                            <path d="M38 12.82l-2.82-2.82-11.18 11.18-11.18-11.18-2.82 2.82 11.18 11.18-11.18 11.18 2.82 2.82 11.18-11.18 11.18 11.18 2.82-2.82-11.18-11.18 11.18-11.18z" fill="#de0b25"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div id="menu-right-items" class="hidden relative flex-col top-0 gap-4 pt-40 px-5">
+                    <div class="w-full flex flex-col max-h-[80vh] overflow-y-auto">
+                        <div class="pl-10">
+                            <h3>Kontakt os</h3>
+                            <div class="text-lg">
+                                Ring os
+                                <div class="dkk-text font-bold pb-10">56188100</div>
+                                Send os en email
+                                <div class="dkk-text font-bold pb-10">post@dkk.dk</div>
+                                Åbningstider
+                                <div class="font-bold pb-10">
+                                Mandag-torsdag kl. 10-12 og kl. 13-15<br>Fredag 10-13
+                                </div>
+                                DKK’s reception i Solrød
+                                <div class="font-bold">
+                                    Mandag – torsdag kl. 9-15<br>Fredag 9-13
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -250,7 +341,7 @@
                 <!-- PRIVACY CONSENT -->
                 <section>
                     <div class="mt-8 pt-8 border-t border-gray-200">
-                        <label class="flex items-start gap-3 cursor-pointer relative">
+                        <label class="flex items-start gap-3 cursor-pointer relative group">
                             <div class="relative flex items-center justify-center mt-1">
                                 <input type="checkbox" id="privacyConsent" required class="track-input w-5 h-5 border-gray-300 rounded text-dkkRed focus:ring-dkkRed transition cursor-pointer">
                             </div>
@@ -281,13 +372,13 @@
         </div>
     </main>
 
-    <!-- FOOTER EXACT MATCH TO DKK ORIGINAL -->
-    <section class="bg-dkkSand50 py-20 mt-10">
+    <!-- FOOTER EXACTLY AS PROVIDED -->
+    <section class="bg-sand-30 py-20 mt-10">
         <div class="mx-auto lg:max-w-screen-lg px-5">
             <div class="grid lg:grid-cols-2 gap-x-10">
                 <div class="pb-5">
                     <h4 class="font-bold text-lg text-gray-800" data-i18n="footer_contact">Kontakt DKK</h4>
-                    <p class="text-sm pt-3 text-gray-700 leading-relaxed" data-i18n="footer_contact_info">
+                    <p class="text-sm pt-3 text-gray-700 leading-relaxed">
                         Dansk Kennel Klub<br>
                         Parkvej 1 <br>
                         2680 Solrød Strand<br>
@@ -298,30 +389,170 @@
                 </div>
                 <div class="pb-5">
                     <h4 class="font-bold text-lg text-gray-800" data-i18n="footer_bank">Bank</h4>
-                    <p class="text-sm text-gray-700 pt-3 leading-relaxed" data-i18n="footer_bank_info">
+                    <div class="text-sm text-gray-700 pt-3 leading-relaxed">
                         <strong>Betalinger til Dansk Kennel Klub</strong><br>
                         <strong>Reg. nr.:</strong> 7316 Konto: 0001089500<br>
                         <strong>IBAN-nr:</strong> DK0973160001089500<br>
                         <strong>SWIFT-kode:</strong> JYBADKKK
-                    </p>
+                        <a href="/handelsbetingelser" class="flex gap-2 items-center justify-start mt-3 font-semibold text-gray-800 hover:text-dkkRed transition">
+                            <span data-i18n="footer_terms">Handelsbetingelser</span>
+                            <svg width="12" height="12" viewBox="0 0 26.205 26.205" class="h-3 w-3">
+                                <g id="Group_362" data-name="Group 362" transform="translate(-1701.291 -350.337)">
+                                    <path id="Path_128" data-name="Path 128" d="M3686.086,57.337h26.2" transform="translate(-1984.795 306.102)" fill="none" stroke="#de0b25" stroke-width="2"></path>
+                                    <path id="Path_129" data-name="Path 129" d="M0,0H26.2" transform="translate(1714.394 350.337) rotate(90)" fill="none" stroke="#de0b25" stroke-width="2"></path>
+                                </g>
+                            </svg>
+                        </a>
+                        <a href="/standard-fortrydelsesformular" class="flex gap-2 items-center justify-start font-semibold text-gray-800 hover:text-dkkRed transition">
+                            <span data-i18n="footer_cancellation">Fortrydelsesformular</span>
+                            <svg width="12" height="12" viewBox="0 0 26.205 26.205" class="h-3 w-3">
+                                <g id="Group_362" data-name="Group 362" transform="translate(-1701.291 -350.337)">
+                                    <path id="Path_128" data-name="Path 128" d="M3686.086,57.337h26.2" transform="translate(-1984.795 306.102)" fill="none" stroke="#de0b25" stroke-width="2"></path>
+                                    <path id="Path_129" data-name="Path 129" d="M0,0H26.2" transform="translate(1714.394 350.337) rotate(90)" fill="none" stroke="#de0b25" stroke-width="2"></path>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="col-span-1 lg:col-span-2 pt-6">
-                    <a href="https://www.hundeweb.dk" class="link-pluss">
+                    <a href="https://www.hundeweb.dk/cas/login?locale=da&amp;service=https%3A%2F%2Fwww.hundeweb.dk%2Fdkk%2Fj_spring_cas_security_check" class="link-pluss">
                         <span data-i18n="footer_mypage">Min side</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826">
-                            <path d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="1"></path>
-                            <path d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="1"></path>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
                         </svg>
                     </a>
+
+                    <a href="https://www.dkk.dk/om-dkk/kontakt/presse" class="link-pluss">
+                        <span data-i18n="footer_press">Presse</span>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.dkk.dk/udstillinger-og-events/praktisk-info-om-udstilinger/for-eksteri%C3%B8rdommere" class="link-pluss">
+                        <span data-i18n="footer_exterior">Eksteriørdommer</span>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.dkk.dk/raadgivning-fra-dkk/er-du-dyrlæge" class="link-pluss">
+                        <span data-i18n="footer_vet">Dyrlæge</span>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.dkk.dk/om-dkk/love-instrukser-og-blanketter/regler-og-instrukser" class="link-pluss">
+                        <span data-i18n="footer_rules">Regler og instrukser</span>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.dkk.dk/om-dkk/love-instrukser-og-blanketter/blanketter" class="link-pluss">
+                        <span data-i18n="footer_forms">Blanketter</span>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.dkk.dk/om-dkk/om-dkk/kredse-og-specialklubber/oversigt-over-specialklubber" class="link-pluss">
+                        <span data-i18n="footer_special_clubs">Specialklubber</span>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                        </svg>
+                    </a>
+
                     <a href="https://www.dkk.dk/cookie" class="link-pluss">
                         <span data-i18n="footer_privacy">Privatlivspolitik</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826">
-                            <path d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="1"></path>
-                            <path d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="1"></path>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.hundeweb.dk/dkk/public/openIndex?ARTICLE_ID=62" class="link-pluss">
+                        <span data-i18n="footer_club_systems">Klubsystemer</span>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.dkk.dk/medlemskab/medlemsfordele/tilbud-og-rabatter" class="link-pluss">
+                        <span data-i18n="footer_discount">Få rabat som DKK medlem</span>
+                        <svg id="Group_766" data-name="Group 766" xmlns="http://www.w3.org/2000/svg" width="18.826" height="18.826" viewBox="0 0 18.826 18.826" class="">
+                            <path id="Path_128" data-name="Path 128" d="M3686.087,57.337h18.826" transform="translate(-3686.087 -47.924)" fill="none" stroke="#000" stroke-width="0.5"></path>
+                            <path id="Path_129" data-name="Path 129" d="M0,0H18.826" transform="translate(9.413 0) rotate(90)" fill="none" stroke="#000" stroke-width="0.5"></path>
                         </svg>
                     </a>
                 </div>
+            </div>
+
+            <!-- Sponsor Logos - All base64 removed, replaced with legitimate URL Links -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:gap-5 gap-y-5 items-center my-10 grayscale hover:grayscale-0 transition duration-500 opacity-80">
+                <a href="https://www.dkk.dk" class="mx-auto">
+                    <img src="https://www.dkk.dk/uploads/images/Tryghed_Garanti.png" alt="DKK Logo" class="h-16 w-16 lg:h-20 lg:w-20 object-contain">
+                </a>
+                <a href="http://www.fci.be/en/" class="mx-auto">
+                    <img src="https://www.dkk.dk/static/img/fci.png" alt="FCI Logo" class="h-14 w-14 lg:h-20 lg:w-20 object-contain">
+                </a>
+                <a href="https://www.agria.dk/hund/hundeforsikring/" class="mx-auto">
+                    <svg width="200" height="93" viewBox="0 0 284 93" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-12 lg:h-18 ">
+                        <path d="M87.35 22.58C72.57 22.27 62.76 32.4 62.76 48.1C62.76 63.8 70.41 74.35 81.98 74.35C85.49 74.35 89.52 73.42 92.42 71.25L93.04 70.79C93.87 76.64 88.15 80.88 82.92 80.88C78.22 80.88 73.88 79.25 70.07 76.66L65 86.26C71.26 90.79 78.23 92.35 83.85 92.35C92.43 92.35 105.66 88.53 105.66 67.96V27.13C99.87 24.34 93.67 22.58 87.37 22.58H87.35ZM76.4 48.1C76.4 39.94 80.33 34.46 85.91 34.46C87.98 34.46 90.15 34.77 92.32 35.49V59.36C89.74 61.53 87.05 61.94 85.19 61.94C79.82 61.94 76.41 57.08 76.41 48.09L76.4 48.1Z" fill="#005CA9"></path>
+                        <path d="M43.5 61.52H19.68L15.33 73.54H0V71.47L27.96 0.309998H35.32L63.18 71.47V73.54H47.95L43.5 61.52ZM27.45 39.31L24.23 49.34H38.85L35.53 39.21L31.6 26.21L27.46 39.31H27.45Z" fill="#005CA9"></path>
+                        <path d="M140.77 22.58C143.98 22.48 147.81 23.93 150.4 26.31L146.46 37.5C144.7 36.15 141.8 35.22 139.11 35.22C133.93 35.22 129.48 38.95 129.48 47.24V73.55H116.12V38.53C116.12 34.39 114.98 31.69 111.25 32.42V23.51C117.26 21.85 128.34 21.65 129.06 30.55C131.23 25.37 135.69 22.58 140.76 22.58H140.77Z" fill="#005CA9"></path>
+                        <path d="M161.52 0C165.45 0 169.39 2.9 169.39 8.29C169.39 13.68 165.56 16.58 161.62 16.68C157.58 16.78 153.44 13.99 153.44 8.29C153.44 2.59 157.48 0 161.52 0ZM168.25 23.61V73.53H154.58V23.61H168.25Z" fill="#005CA9"></path>
+                        <path d="M216.9 56.86V27.14C211.1 24.34 204.89 22.58 198.57 22.58C183.76 22.27 173.92 32.42 173.92 48.16C173.92 63.9 181.59 74.47 193.19 74.47C204 74.47 206.49 67.69 206.49 67.69V67.6C208.22 75.26 215.72 75.14 221.36 73.54L221.47 64.12C217.43 64.95 216.91 61.74 216.91 56.87L216.9 56.86ZM203.54 59.45C200.95 61.62 198.26 62.04 196.39 62.04C191 62.04 187.59 57.17 187.59 48.16C187.59 39.98 191.52 34.49 197.12 34.49C199.19 34.49 201.37 34.8 203.54 35.53V59.46V59.45Z" fill="#005CA9"></path>
+                        <path d="M251.39 23.61V37.5H269.58V73.54H283.47V23.61H251.39Z" fill="#005CA9"></path>
+                        <path d="M233.54 23.61V73.54H265.61V59.65H247.42V23.61H233.54Z" fill="#005CA9"></path>
+                        <path d="M265.61 41.47H251.39V55.69H265.61V41.47Z" fill="#E30613"></path>
+                    </svg>
+                </a>
+                <a href="http://www.royalcanin.dk/" class="mx-auto">
+                    <svg width="150" height="48" viewBox="0 0 401 178" fill="none" class="h-12 lg:h-20 ">
+                        <g clip-path="url(#clip0_0_3)">
+                            <path d="M400.21 0H0V177.04H400.21V0Z" fill=""></path>
+                            <path d="M322.77 144.16C322.77 147.06 325.12 149.41 328.02 149.41C330.92 149.41 333.27 147.06 333.27 144.16V107.78C333.27 104.88 330.92 102.53 328.02 102.53C325.12 102.53 322.77 104.88 322.77 107.78V144.16Z" fill="#E30613"></path>
+                            <path d="M183.05 139.23C185.71 139.23 187.87 141.39 187.87 144.05C187.87 146.71 185.71 148.87 183.05 148.87H165.21C163.63 148.87 162.36 147.59 162.36 146.01V108.57C162.36 105.75 164.65 103.46 167.48 103.46C170.31 103.46 172.59 105.75 172.59 108.57V138.65C172.59 138.96 172.84 139.22 173.16 139.22H183.06L183.05 139.23Z" fill="#E30613"></path>
+                            <path d="M294.89 106.92C293.69 104.79 291.63 103.64 288.85 103.64C285.3 103.64 282.33 106.52 282.33 110.06V144.54C282.33 147.23 284.61 149.4 287.3 149.4C289.99 149.4 292.27 147.22 292.27 144.54V123.52C292.27 123.35 292.41 123.22 292.57 123.22C292.67 123.22 292.77 123.28 292.82 123.36L305.4 145.59C306.5 147.55 308.6 148.87 311 148.87C314.55 148.87 317.42 145.99 317.42 142.45V107.38C317.42 104.69 315.24 102.52 312.55 102.52C309.86 102.52 307.69 104.7 307.69 107.38V128.4C307.69 128.57 307.55 128.7 307.39 128.7C307.29 128.7 307.19 128.64 307.14 128.56L294.9 106.92H294.89Z" fill="#E30613"></path>
+                            <path d="M351.25 106.92C350.05 104.79 347.99 103.64 345.21 103.64C341.66 103.64 338.69 106.52 338.69 110.06V144.54C338.69 147.23 340.97 149.4 343.66 149.4C346.35 149.4 348.63 147.22 348.63 144.54V123.52C348.63 123.35 348.77 123.22 348.93 123.22C349.03 123.22 349.13 123.28 349.18 123.36L361.76 145.59C362.86 147.55 364.96 148.87 367.36 148.87C370.91 148.87 373.78 145.99 373.78 142.45V107.38C373.78 104.69 371.6 102.52 368.91 102.52C366.22 102.52 364.05 104.7 364.05 107.38V128.4C364.05 128.57 363.91 128.7 363.75 128.7C363.64 128.7 363.55 128.64 363.5 128.56L351.26 106.92H351.25Z" fill="#E30613"></path>
+                            <path d="M112.51 117.21C112.7 117.21 112.86 117.13 112.98 117.01L124.18 105.23C125.05 104.32 126.27 103.75 127.63 103.75C130.25 103.75 132.38 105.88 132.38 108.5C132.38 109.74 131.9 110.87 131.12 111.72L117.52 127.49L117.31 144.07C117.31 146.72 115.16 148.87 112.51 148.87C109.86 148.87 107.71 146.72 107.71 144.07L107.5 127.49L93.9 111.72C93.12 110.87 92.64 109.74 92.64 108.5C92.64 105.88 94.77 103.75 97.39 103.75C98.75 103.75 99.97 104.32 100.84 105.23L112.04 117.01C112.16 117.14 112.33 117.21 112.51 117.21Z" fill="#E30613"></path>
+                            <path d="M96.72 126.4C96.72 138.88 86.6 148.99 74.13 148.99C61.66 148.99 51.54 138.87 51.54 126.4C51.54 113.93 61.66 103.81 74.13 103.81C86.6 103.81 96.72 113.93 96.72 126.4ZM74.13 114.24C67.42 114.24 61.97 119.68 61.97 126.4C61.97 133.12 67.41 138.56 74.13 138.56C80.85 138.56 86.29 133.12 86.29 126.4C86.29 119.68 80.85 114.24 74.13 114.24Z" fill="#E30613"></path>
+                            <path d="M278.94 141.05C279.56 141.87 279.93 142.89 279.93 144C279.93 146.69 277.75 148.87 275.06 148.87C273.46 148.87 272.04 148.1 271.16 146.91L265.91 139.92H253.52L253.48 143.94C253.48 146.66 250.99 148.87 248.27 148.87C245.55 148.87 243.34 146.66 243.34 143.94V107.64C243.34 104.79 245.65 103.35 248.51 103.35C250.08 103.35 251.48 104.05 252.43 105.15L278.94 141.04V141.05ZM253.51 122.59V130.04H258.18C258.41 130.04 258.6 129.86 258.6 129.63C258.6 129.54 258.57 129.46 258.53 129.4L253.51 122.6V122.59Z" fill="#E30613"></path>
+                            <path d="M147.02 105.15C147.97 104.05 149.37 103.35 150.94 103.35C153.8 103.35 156.11 105.66 156.11 108.52V143.94C156.11 146.66 153.9 148.87 151.18 148.87C148.46 148.87 145.97 146.66 145.97 143.94L145.93 139.92H133.54L128.29 146.91C127.4 148.1 125.98 148.87 124.39 148.87C121.7 148.87 119.52 146.69 119.52 144C119.52 142.89 119.89 141.87 120.51 141.05L147.02 105.16V105.15ZM140.92 129.38C140.88 129.45 140.85 129.53 140.85 129.61C140.85 129.84 141.04 130.03 141.27 130.03H145.94V122.58L140.92 129.38Z" fill="#E30613"></path>
+                            <path d="M201.32 126.53C201.32 140.56 213.16 148.99 222.57 148.99C229.04 148.99 235.8 146.13 239.52 141.76C240.22 140.93 240.64 139.86 240.64 138.68C240.64 136.03 238.49 133.88 235.84 133.88C235.05 133.88 234.3 134.07 233.64 134.41L229.71 137.06C227.85 138.26 225.65 138.96 223.3 138.96C216.63 138.96 211.34 133.39 211.34 126.53C211.34 119.67 216.63 114.1 223.3 114.1C225.66 114.1 227.86 114.79 229.71 116L233.52 118.53C234.18 118.87 234.93 119.06 235.72 119.06C238.37 119.06 240.52 116.91 240.52 114.26C240.52 113.09 240.1 112.02 239.4 111.18C235.68 106.81 230.25 104.08 223.78 104.08C211.38 104.08 201.32 114.13 201.32 126.54" fill="#E30613"></path>
+                            <path d="M20.56 119.15C20.56 114.81 21.52 110.78 24.66 107.85C27.32 105.37 30.85 103.65 35.67 103.94C44.3 104.45 50.21 110.75 50.21 119.15C50.21 124.16 47.43 128.65 43.77 130.57L51.13 142.27C51.46 142.9 51.64 143.62 51.64 144.38C51.64 146.92 49.3 148.99 46.75 148.99C45.53 148.99 44.41 148.51 43.59 147.73L31.8 131.72C31.73 131.68 31.64 131.66 31.56 131.66C31.27 131.66 31.03 131.89 31.03 132.18L30.86 144.18C30.86 146.83 28.71 148.98 26.06 148.98C23.41 148.98 21.26 146.83 21.26 144.18L20.55 119.15H20.56ZM35.15 114.05C32.24 114.05 29.87 116.24 29.87 118.93C29.87 121.62 32.23 123.81 35.15 123.81C38.07 123.81 40.43 121.62 40.43 118.93C40.43 116.24 38.07 114.05 35.15 114.05Z" fill="#E30613"></path>
+                            <path d="M384.26 102.4C387.18 102.4 389.56 104.78 389.56 107.7C389.56 110.62 387.18 113 384.26 113C381.34 113 378.96 110.62 378.96 107.7C378.96 104.78 381.34 102.4 384.26 102.4ZM384.26 111.7C386.48 111.7 388.26 109.91 388.26 107.7C388.26 105.49 386.47 103.7 384.26 103.7C382.05 103.7 380.26 105.49 380.26 107.7C380.26 109.91 382.05 111.7 384.26 111.7ZM383.42 109.97C383.42 110.37 383.28 110.66 382.77 110.66C382.26 110.66 382.12 110.43 382.12 109.97V105.52C382.12 105.19 382.24 104.92 382.78 104.92H384.41C385.58 104.92 386.56 105.27 386.56 106.61C386.56 107.63 386.04 108.15 385.12 108.19L386.14 109.86C386.2 109.98 386.23 110.08 386.23 110.16C386.23 110.48 386.03 110.66 385.55 110.66C385.07 110.66 384.95 110.31 384.76 109.97L383.85 108.27H383.42V109.97ZM384.5 107.23C384.98 107.23 385.26 107.11 385.26 106.6C385.26 106.09 384.97 105.95 384.5 105.95H383.42V107.23H384.5Z" fill="#E30613"></path>
+                            <path d="M157.04 86.65C155.84 86.65 154.65 86.1 153.87 85.07C152.56 83.32 152.92 80.84 154.67 79.53C165.17 71.67 181.25 66.98 197.66 66.98C214.02 66.98 230.05 71.67 240.55 79.53C242.3 80.84 242.66 83.32 241.34 85.07C240.04 86.82 237.56 87.18 235.81 85.87C228.72 80.57 214.98 74.9 197.66 74.9C180.27 74.9 166.5 80.57 159.4 85.88C158.69 86.41 157.86 86.67 157.03 86.67" fill="#E30613"></path>
+                            <path d="M160.65 93.41C159.87 93.41 159.09 93.07 158.56 92.42C157.62 91.27 157.78 89.56 158.94 88.61C168.02 81.15 182.5 76.69 197.67 76.69C212.84 76.69 227.2 81.14 236.28 88.61C237.44 89.55 237.61 91.26 236.66 92.42C235.71 93.58 234 93.74 232.85 92.79C224.7 86.1 211.55 82.11 197.67 82.11C183.79 82.11 170.39 86.2 162.38 92.8C161.88 93.22 161.27 93.42 160.66 93.42" fill="#E30613"></path>
+                            <path d="M139.46 36.47C137.85 36.47 136.26 36.91 134.86 37.73C132.78 38.96 131.29 40.94 130.69 43.28C130.09 45.63 130.43 48.07 131.67 50.15C133.28 52.87 136.25 54.57 139.44 54.6H139.5C141.12 54.6 142.71 54.16 144.1 53.34C146.19 52.11 147.66 50.14 148.26 47.79C148.86 45.44 148.51 43 147.28 40.92C145.66 38.17 142.66 36.47 139.45 36.47" fill="#E30613"></path>
+                            <path d="M197.61 43.45C192.6 43.45 188.53 47.52 188.53 52.52C188.53 57.52 192.6 61.59 197.61 61.59C202.62 61.59 206.68 57.52 206.68 52.52C206.68 47.52 202.62 43.45 197.61 43.45Z" fill="#E30613"></path>
+                            <path d="M197.61 20.73C192.6 20.73 188.53 24.8 188.53 29.8C188.53 34.8 192.6 38.87 197.61 38.87C202.62 38.87 206.68 34.8 206.68 29.8C206.68 24.8 202.62 20.73 197.61 20.73Z" fill="#E30613"></path>
+                            <path d="M173.48 46.61C172.67 46.61 171.86 46.72 171.08 46.93C166.25 48.25 163.4 53.25 164.73 58.07C165.79 61.96 169.37 64.7 173.44 64.74H173.64C174.39 64.74 175.15 64.62 175.88 64.42C178.21 63.78 180.16 62.27 181.36 60.17C182.56 58.06 182.87 55.62 182.23 53.29C181.15 49.35 177.56 46.61 173.48 46.61Z" fill="#E30613"></path>
+                            <path d="M151.02 56.02C149.4 56.02 147.81 56.45 146.43 57.28C144.34 58.51 142.86 60.48 142.26 62.83C141.66 65.18 142.01 67.62 143.24 69.71C144.85 72.42 147.82 74.13 151.02 74.16H151.07C152.69 74.16 154.27 73.73 155.68 72.9C157.76 71.67 159.25 69.69 159.84 67.35C160.44 65.01 160.1 62.57 158.87 60.48C157.24 57.73 154.24 56.03 151.04 56.03" fill="#E30613"></path>
+                            <path d="M224.13 46.93C223.35 46.72 222.54 46.61 221.74 46.61C217.67 46.61 214.07 49.35 213 53.29C211.68 58.11 214.53 63.11 219.35 64.43C220.14 64.64 220.95 64.75 221.75 64.75C225.81 64.75 229.42 62 230.49 58.07C231.8 53.25 228.96 48.25 224.13 46.93Z" fill="#E30613"></path>
+                            <path d="M230.12 25.02C229.34 24.81 228.54 24.7 227.73 24.7C223.66 24.7 220.07 27.45 218.99 31.38C217.67 36.2 220.53 41.2 225.35 42.52C226.13 42.73 226.94 42.84 227.74 42.84C231.81 42.84 235.41 40.09 236.49 36.16C237.81 31.34 234.96 26.34 230.13 25.02" fill="#E30613"></path>
+                            <path d="M248.79 57.28C247.39 56.45 245.8 56.02 244.18 56.02C240.98 56.02 237.99 57.73 236.37 60.47C235.14 62.56 234.79 65 235.39 67.34C235.99 69.69 237.47 71.66 239.55 72.89C240.96 73.72 242.54 74.15 244.17 74.15C247.36 74.15 250.36 72.45 251.98 69.7C253.21 67.61 253.56 65.17 252.95 62.82C252.35 60.47 250.87 58.5 248.79 57.27" fill="#E30613"></path>
+                            <path d="M264.52 43.28C263.92 40.93 262.44 38.96 260.35 37.73C258.95 36.9 257.36 36.47 255.75 36.47C252.56 36.47 249.56 38.18 247.94 40.92C246.7 43.01 246.36 45.45 246.96 47.79C247.56 50.13 249.04 52.11 251.12 53.34C252.52 54.17 254.11 54.61 255.73 54.61C258.93 54.61 261.92 52.91 263.55 50.16C264.78 48.08 265.13 45.64 264.52 43.29" fill="#E30613"></path>
+                            <path d="M167.49 42.84C168.3 42.84 169.11 42.73 169.88 42.52C174.7 41.2 177.55 36.2 176.23 31.38C175.16 27.45 171.56 24.7 167.48 24.7C166.67 24.7 165.86 24.81 165.09 25.02C160.26 26.34 157.41 31.34 158.73 36.16C159.8 40.05 163.38 42.79 167.44 42.83H167.49V42.84Z" fill="#E30613"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_0_3">
+                                <rect width="400.21" height="177.04" fill="white"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
