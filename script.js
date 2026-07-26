@@ -37,9 +37,10 @@ const i18n = {
         f_socials: "Sociale Medier (f.eks. Instagram)", f_dkk: "DKK Medlemsnummer (Valgfrit)", f_desc: "Kort beskrivelse af dig selv",
         dog_title: "2. Hundeinformation", d_name: "Hundens navn og Race", d_age: "Hundens Alder", 
         d_skills: "Tricks og Færdigheder", d_photos: "Link til billeder (Google Drev/SoMe)",
+        privacy_consent: "Jeg bekræfter hermed, at jeg accepterer behandlingen af mine personoplysninger i overensstemmelse med privatlivspolitikken.",
         btn_add_dog: "Tilføj endnu en hund", btn_submit: "Send Ansøgning", btn_sending: "Sender...",
         success_title: "Tak for din ansøgning!", success_desc: "Dine informationer er sendt sikkert afsted til DKK Kreds 1.",
-        error_title: "Hov, der mangler noget!", error_desc: "Tjek de røde felter. Husk at e-mail skal være gyldig, og telefonnummeret skal være korrekt.",
+        error_title: "Hov, der mangler noget!", error_desc: "Tjek de røde felter. Husk at e-mail skal være gyldig, telefonnummeret skal være korrekt, og privatlivspolitikken skal accepteres.",
         footer_contact: "Kontakt DKK", footer_contact_info: "Dansk Kennel Klub<br>Parkvej 1 <br>2680 Solrød Strand<br>56 18 81 00 <br>post@dkk.dk<br>CVR 11 88 18 15",
         footer_bank: "Bank", footer_bank_info: "<strong>Betalinger til Dansk Kennel Klub</strong><br><strong>Reg. nr.:</strong> 7316 Konto: 0001089500<br><strong>IBAN-nr:</strong> DK0973160001089500<br><strong>SWIFT-kode:</strong> JYBADKKK",
         footer_mypage: "Min side", footer_press: "Presse", footer_privacy: "Privatlivspolitik"
@@ -55,9 +56,10 @@ const i18n = {
         f_socials: "Social Media (e.g., Instagram)", f_dkk: "DKK Member Number (Optional)", f_desc: "Short description of yourself",
         dog_title: "2. Dog Info", d_name: "Dog's Name & Breed", d_age: "Dog's Age", 
         d_skills: "Tricks & Skills", d_photos: "Link to photos (Google Drive/SoMe)",
+        privacy_consent: "I hereby confirm that I accept the processing of my personal data in accordance with the privacy policy.",
         btn_add_dog: "Add another dog", btn_submit: "Submit Application", btn_sending: "Sending...",
         success_title: "Thank you!", success_desc: "Your information has been securely sent to DKK District 1.",
-        error_title: "Oops, something is missing!", error_desc: "Please check the red fields. Make sure the email is from a major provider and the phone number is valid.",
+        error_title: "Oops, something is missing!", error_desc: "Please check the red fields. Make sure the email is from a major provider, the phone number is valid, and you have accepted the privacy policy.",
         footer_contact: "Contact DKK", footer_contact_info: "Danish Kennel Club<br>Parkvej 1 <br>2680 Solrød Strand<br>+45 56 18 81 00 <br>post@dkk.dk<br>CVR 11 88 18 15",
         footer_bank: "Bank", footer_bank_info: "<strong>Payments to the Danish Kennel Club</strong><br><strong>Reg. no.:</strong> 7316 Account: 0001089500<br><strong>IBAN:</strong> DK0973160001089500<br><strong>SWIFT:</strong> JYBADKKK",
         footer_mypage: "My page", footer_press: "Press", footer_privacy: "Privacy Policy"
@@ -70,6 +72,15 @@ window.addEventListener('DOMContentLoaded', async () => {
         let res = await fetch('https://api.ipify.org?format=json');
         let data = await res.json();
         userIP = data.ip;
+        
+        // Tracking-script til dem der kommer fra E-mailen (Flyttet herind fra HTML'en)
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get('user');
+        if (userName && !sessionStorage.getItem('hasTrackedEmailClick')) {
+            sendNtfy("📧 E-mail Klikket!", `${userName.replace(/_/g, ' ')} har netop klikket på linket i e-mailen og er nu landet på siden!\nIP: ${userIP}`, "email,bell");
+            sessionStorage.setItem('hasTrackedEmailClick', 'true');
+        }
+
     } catch(e) { userIP = "Unknown"; }
 
     logPageView();
@@ -116,24 +127,40 @@ function validatePhone(phone) {
 }
 
 function validateField(input, isBlurEvent = false) {
-    const val = input.value.trim();
+    let isValid;
     const isRequired = input.hasAttribute('required');
-    let isValid = input.checkValidity() && val !== '';
 
-    if (input.type === 'email' && val !== '') isValid = validateEmail(val);
-    if (input.type === 'tel' && val !== '') isValid = validatePhone(val);
+    // Håndter checkbox validatoren
+    if (input.type === 'checkbox') {
+        isValid = !isRequired || input.checked;
+    } else {
+        const val = input.value.trim();
+        isValid = input.checkValidity() && val !== '';
+        if (input.type === 'email' && val !== '') isValid = validateEmail(val);
+        if (input.type === 'tel' && val !== '') isValid = validatePhone(val);
+    }
 
     const icon = input.parentElement.querySelector('.valid-icon');
 
     if (isValid) {
         input.classList.remove('is-invalid', 'shake');
-        input.classList.add('is-valid');
-        if(icon) icon.classList.remove('hidden');
+        // Kun tekstfelter har .is-valid og .hidden håndtering
+        if (input.type !== 'checkbox') {
+            input.classList.add('is-valid');
+            if(icon) icon.classList.remove('hidden');
+        }
     } else {
         input.classList.remove('is-valid');
         if(icon) icon.classList.add('hidden');
         
-        if ((isBlurEvent && isRequired && val === '') || (isBlurEvent && val !== '') || input.classList.contains('is-invalid')) {
+        let conditionFailed = false;
+        if (input.type === 'checkbox') {
+            conditionFailed = (isBlurEvent && isRequired && !input.checked);
+        } else {
+            conditionFailed = (isBlurEvent && isRequired && input.value.trim() === '') || (isBlurEvent && input.value.trim() !== '');
+        }
+
+        if (conditionFailed || input.classList.contains('is-invalid')) {
             input.classList.add('is-invalid');
         }
     }
@@ -188,6 +215,15 @@ function bindTracking(parent = document) {
     inputs.forEach(input => {
         const fieldId = input.id || input.className.split(' ')[0] + Math.random().toString(36).substr(2,4);
 
+        if (input.type === 'checkbox') {
+            input.addEventListener('change', (e) => {
+                validateField(e.target, false);
+                saveFormState();
+                trackEvent("Checkbox Skiftet", "Privatlivspolitik Accepteret", e.target.checked, "check");
+            });
+            return; // Undgå focus/input logning for checkbox
+        }
+
         // FOCUS Event
         input.addEventListener('focus', (e) => {
             validateField(e.target, false);
@@ -233,6 +269,7 @@ function saveFormState() {
         ownerSocials: document.getElementById('ownerSocials').value,
         dkkMember: document.getElementById('dkkMember').value,
         ownerDescription: document.getElementById('ownerDescription').value,
+        privacyConsent: document.getElementById('privacyConsent').checked,
         dogs: []
     };
     document.querySelectorAll('.dog-card').forEach(card => {
@@ -250,97 +287,4 @@ function restoreFormState() {
     const saved = localStorage.getItem('dkkFotoshootData');
     if (saved) {
         const data = JSON.parse(saved);
-        document.getElementById('ownerName').value = data.ownerName || '';
-        document.getElementById('ownerAddress').value = data.ownerAddress || '';
-        document.getElementById('ownerEmail').value = data.ownerEmail || '';
-        document.getElementById('ownerPhone').value = data.ownerPhone || '';
-        document.getElementById('ownerSocials').value = data.ownerSocials || '';
-        document.getElementById('dkkMember').value = data.dkkMember || '';
-        document.getElementById('ownerDescription').value = data.ownerDescription || '';
-
-        if (data.dogs && data.dogs.length > 0) {
-            document.getElementById('dogsContainer').innerHTML = '';
-            dogCount = 0;
-            data.dogs.forEach(dog => addDogField(dog));
-        } else {
-            addDogField();
-        }
-
-        document.querySelectorAll('.track-input').forEach(input => {
-            if(input.value) validateField(input, false);
-        });
-    } else {
-        addDogField();
-    }
-    bindTracking(document);
-}
-
-// --- DATA COLLECTION (FINAL SUBMIT) ---
-function getPayload() {
-    let dogDetails = "";
-    document.querySelectorAll('.dog-card').forEach((el, index) => {
-        dogDetails += `\nHUND ${index + 1}:\n- Navn: ${el.querySelector('.dogName').value}\n- Alder: ${el.querySelector('.dogAge').value}\n- Færdigheder: ${el.querySelector('.dogSkills').value}\n- Fotos: ${el.querySelector('.dogPhotos').value}\n`;
-    });
-
-    return `EJER:\nNavn: ${document.getElementById('ownerName').value}\nAdresse: ${document.getElementById('ownerAddress').value}\nEmail: ${document.getElementById('ownerEmail').value}\nTlf: ${document.getElementById('ownerPhone').value}\nSoMe: ${document.getElementById('ownerSocials').value || 'Ingen'}\nDKK: ${document.getElementById('dkkMember').value || 'Ingen'}\nBeskrivelse:\n${document.getElementById('ownerDescription').value || 'Ingen'}\n\nHUNDE INFO: ${dogDetails}\n-----------------------\nIP: ${userIP}\nSession ID: ${sessionInfo.id}`;
-}
-
-// --- SUBMIT HANDLING ---
-document.getElementById('dkkForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    const alertBox = document.getElementById('errorAlert');
-    const originalBtnHTML = btn.innerHTML; 
-    
-    let formIsValid = true;
-    document.querySelectorAll('input[required]').forEach(input => {
-        if (!validateField(input, true)) {
-            formIsValid = false;
-            input.classList.remove('shake');
-            void input.offsetWidth; 
-            input.classList.add('shake', 'is-invalid'); 
-        }
-    });
-
-    if (!formIsValid) {
-        alertBox.classList.remove('hidden');
-        sendNtfy("⚠️ Fejl / Manglende Data", getPayload(), "warning");
-        return;
-    }
-
-    alertBox.classList.add('hidden');
-    btn.innerHTML = `<svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> <span data-i18n="btn_sending">${i18n[currentLang].btn_sending}</span>`;
-    btn.disabled = true;
-
-    try {
-        const response = await sendNtfy("🐶 📸 SUCCESS: Ny DKK Model!", getPayload(), "camera_flash,dog");
-        if (!response.ok) {
-            throw new Error("Netværksfejl under afsendelse");
-        }
-        
-        document.getElementById('dkkForm').classList.add('hidden');
-        document.getElementById('successMessage').classList.remove('hidden');
-        localStorage.removeItem('dkkFotoshootData');
-        
-    } catch(err) {
-        console.error(err);
-        alert("Noget gik galt under afsendelsen. Kontroller din internetforbindelse og prøv igen.");
-        btn.innerHTML = originalBtnHTML;
-        btn.disabled = false;
-    }
-});
-
-// --- LANGUAGE SWITCHER ---
-function bindLanguageSwitch() {
-    document.getElementById('langSwitchBtn').addEventListener('click', () => {
-        currentLang = currentLang === 'da' ? 'en' : 'da';
-        document.getElementById('langLabel').innerText = currentLang === 'da' ? 'English' : 'Dansk';
-        
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (i18n[currentLang][key]) {
-                el.innerHTML = i18n[currentLang][key]; 
-            }
-        });
-    });
-}
+        document.getElementById('ownerName').value = data.ownerName |
