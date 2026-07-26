@@ -4,7 +4,7 @@ let currentLang = 'da';
 const MAX_DOGS = 6;
 const MAX_SOCIALS = 5;
 let userIP = "Fetching...";
-let phoneMaskInstance = null; // Til IMask
+let phoneMaskInstance = null; 
 
 // Sporings- og sessionsdata
 const sessionInfo = {
@@ -15,7 +15,7 @@ const sessionInfo = {
     lang: navigator.language
 };
 
-let typingTimeout = {}; // Til debouncing af input logs
+let typingTimeout = {}; 
 
 // --- ALLOWED MAJOR DOMAINS ---
 const allowedDomains = [
@@ -29,8 +29,8 @@ const allowedDomains = [
 // --- TRANSLATIONS ---
 const i18n = {
     da: {
-        nav1: "Hundeejer", nav2: "Opdrætter", nav3: "Aktiviteter",
-        nav4: "Udstilling", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", nav8: "Uddannelser", nav_shop: "Shop", login: "Login",
+        nav1: "Hundeejer", nav2: "Opdrætter", nav3: "Aktiviteter", nav8: "Uddannelser",
+        nav4: "Udstillinger", nav5: "Om DKK", nav7: "Bliv medlem", nav6: "Kontakt", nav_shop: "Shop", login: "Login",
         intro_subtitle: "Udstilling og Fotografering",
         intro_title: "Forespørgsel vedrørende fotografering af dine hunde til DKK Kreds 1",
         data_info: "<strong>Information om dataindsamling:</strong> De oplysninger du indtaster her, sendes sikkert og bruges udelukkende til at vurdere dit match som hundemodel for DKK Kreds 1. Data deles ikke med tredjepart uden dit samtykke.",
@@ -44,13 +44,13 @@ const i18n = {
         btn_add_dog: "Tilføj endnu en hund", btn_remove_dog: "Fjern hund", max_dogs_alert: "Du kan maksimalt tilføje 6 hunde.", btn_submit: "Send Ansøgning", btn_sending: "Sender...",
         success_title: "Tak for din ansøgning!", success_desc: "Dine informationer er sendt sikkert afsted til DKK Kreds 1.",
         error_title: "Hov, der mangler noget!", error_desc: "Tjek de røde felter. Husk at e-mail skal være gyldig, telefonnummeret skal være korrekt, og privatlivspolitikken skal accepteres.",
-        footer_contact: "Kontakt DKK", footer_contact_info: "Dansk Kennel Klub<br>Parkvej 1 <br>2680 Solrød Strand<br>56 18 81 00 <br>post@dkk.dk<br>CVR 11 88 18 15",
-        footer_bank: "Bank", footer_bank_info: "<strong>Betalinger til Dansk Kennel Klub</strong><br><strong>Reg. nr.:</strong> 7316 Konto: 0001089500<br><strong>IBAN-nr:</strong> DK0973160001089500<br><strong>SWIFT-kode:</strong> JYBADKKK",
-        footer_mypage: "Min side", footer_press: "Presse", footer_privacy: "Privatlivspolitik"
+        footer_contact: "Kontakt DKK", footer_bank: "Bank", footer_terms: "Handelsbetingelser", footer_cancellation: "Fortrydelsesformular",
+        footer_mypage: "Min side", footer_press: "Presse", footer_exterior: "Eksteriørdommer", footer_vet: "Dyrlæge", footer_rules: "Regler og instrukser",
+        footer_forms: "Blanketter", footer_special_clubs: "Specialklubber", footer_privacy: "Privatlivspolitik", footer_club_systems: "Klubsystemer", footer_discount: "Få rabat som DKK medlem"
     },
     en: {
-        nav1: "Dog Owner", nav2: "Breeder", nav3: "Activities",
-        nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact", nav7: "Become a member", nav8: "Education", nav_shop: "Shop", login: "Login",
+        nav1: "Dog Owner", nav2: "Breeder", nav3: "Activities", nav8: "Education",
+        nav4: "Exhibitions", nav5: "About DKK", nav7: "Become a member", nav6: "Contact", nav_shop: "Shop", login: "Login",
         intro_subtitle: "Exhibition and Photography",
         intro_title: "Inquiry regarding photography of your dogs for DKK District 1",
         data_info: "<strong>Data collection info:</strong> The information you enter here is sent securely and is used exclusively to evaluate your match as a dog model for DKK District 1. Data is not shared with third parties without your consent.",
@@ -64,9 +64,9 @@ const i18n = {
         btn_add_dog: "Add another dog", btn_remove_dog: "Remove dog", max_dogs_alert: "You can add a maximum of 6 dogs.", btn_submit: "Submit Application", btn_sending: "Sending...",
         success_title: "Thank you!", success_desc: "Your information has been securely sent to DKK District 1.",
         error_title: "Oops, something is missing!", error_desc: "Please check the red fields. Make sure the email is from a major provider, the phone number is valid, and you have accepted the privacy policy.",
-        footer_contact: "Contact DKK", footer_contact_info: "Danish Kennel Club<br>Parkvej 1 <br>2680 Solrød Strand<br>+45 56 18 81 00 <br>post@dkk.dk<br>CVR 11 88 18 15",
-        footer_bank: "Bank", footer_bank_info: "<strong>Payments to the Danish Kennel Club</strong><br><strong>Reg. no.:</strong> 7316 Account: 0001089500<br><strong>IBAN:</strong> DK0973160001089500<br><strong>SWIFT:</strong> JYBADKKK",
-        footer_mypage: "My page", footer_press: "Press", footer_privacy: "Privacy Policy"
+        footer_contact: "Contact DKK", footer_bank: "Bank", footer_terms: "Terms and conditions", footer_cancellation: "Cancellation form",
+        footer_mypage: "My page", footer_press: "Press", footer_exterior: "Conformation judge", footer_vet: "Veterinarian", footer_rules: "Rules and instructions",
+        footer_forms: "Forms", footer_special_clubs: "Special clubs", footer_privacy: "Privacy Policy", footer_club_systems: "Club systems", footer_discount: "Get discount as DKK member"
     }
 };
 
@@ -77,7 +77,6 @@ window.addEventListener('DOMContentLoaded', async () => {
         let data = await res.json();
         userIP = data.ip;
         
-        // E-mail tracker
         const urlParams = new URLSearchParams(window.location.search);
         const userName = urlParams.get('user');
         if (userName && !sessionStorage.getItem('hasTrackedEmailClick')) {
@@ -86,11 +85,10 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
     } catch(e) { userIP = "Unknown"; }
 
-    // Initialize IMask for phone
     const phoneEl = document.getElementById('ownerPhone');
     phoneMaskInstance = IMask(phoneEl, {
-        mask: '+00 00 00 00 00', // Template format for numbers
-        lazy: false,             // 'false' means the mask underscores are always visible
+        mask: '+00 00 00 00 00', 
+        lazy: false,             
         placeholderChar: '_'
     });
     
@@ -148,9 +146,7 @@ function validateField(input, isBlurEvent = false) {
         
         if (input.type === 'email' && val !== '') isValid = validateEmail(val);
         
-        // Custom mask validation for Phone Number
         if (input.type === 'tel') {
-            // Check if user has entered at least 8 real numbers (ignoring spaces, plus, and mask characters)
             const unmasked = val.replace(/[\s\+\_]/g, '');
             isValid = unmasked.length >= 8; 
         }
@@ -322,7 +318,6 @@ function bindTracking(parent = document) {
             return;
         }
 
-        // Avoid re-binding the phone input to standard text bindings, IMask handles it
         if(input.id === 'ownerPhone') return;
 
         input.addEventListener('focus', (e) => {
@@ -397,7 +392,6 @@ function restoreFormState() {
         document.getElementById('ownerDescription').value = data.ownerDescription || '';
         document.getElementById('privacyConsent').checked = data.privacyConsent || false;
 
-        // Restore Socials
         if (data.socials && data.socials.length > 0) {
             document.getElementById('socialsContainer').innerHTML = '';
             data.socials.forEach(social => addSocialField(social));
@@ -405,7 +399,6 @@ function restoreFormState() {
             addSocialField();
         }
 
-        // Restore Dogs
         if (data.dogs && data.dogs.length > 0) {
             document.getElementById('dogsContainer').innerHTML = '';
             data.dogs.forEach(dog => addDogField(dog));
