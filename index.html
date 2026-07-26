@@ -49,8 +49,9 @@
             </div>
             
             <ul class="text-gray-800 text-xs flex gap-7 items-center font-bold">
+                <!-- SSO LOGIN LINK UPDATED -->
                 <li class="hidden md:block hover:text-dkkRed transition">
-                    <a href="https://www.hundeweb.dk/sso" class="flex items-center gap-2">
+                    <a href="https://www.dkk.dk/sso/login/request/b362ed7c-c4ba-41b4-998a-2973dd2ac627?RelayState=https://www.dkk.dk/hundeuniversitetet/start" class="flex items-center gap-2">
                         <svg width="24" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 10V8C6 4.69 7 2 12 2C17 2 18 4.69 18 8V10" stroke="#E6485C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                             <path d="M12 18.5C13.3807 18.5 14.5 17.3807 14.5 16C14.5 14.6193 13.3807 13.5 12 13.5C10.6193 13.5 9.5 14.6193 9.5 16C9.5 17.3807 10.6193 18.5 12 18.5Z" stroke="#E6485C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -114,7 +115,7 @@
                     <a href="#" class="hover:text-dkkRed transition" data-i18n="nav1">Hundeejer</a>
                     <a href="#" class="hover:text-dkkRed transition" data-i18n="nav2">Opdrætter</a>
                     <a href="#" class="hover:text-dkkRed transition" data-i18n="nav3">Aktiviteter</a>
-                    <a href="#" class="hover:text-dkkRed transition">Uddannelser</a>
+                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav8">Uddannelser</a>
                 </div>
                 
                 <a href="https://www.dkk.dk/" class="mx-auto transform hover:scale-105 transition duration-300">
@@ -148,18 +149,16 @@
         </div>
     </div>
 
-    <!-- HERO SECTION (MATCHING DKK ORIGINAL) -->
+    <!-- HERO SECTION -->
     <div class="mx-auto lg:max-w-screen-2xl px-5 pt-0 lg:pt-10 pb-10">
         <div class="md:grid grid-cols-2 gap-x-6 items-stretch">
             
-            <!-- Venstre side (Billede) -->
             <div class="mt-5">
                 <div class="h-full relative overflow-hidden fade-in-up shadow-sm">
                     <img src="https://www.dkk.dk/uploads/images/_855x600_crop_center-center_100_none/749314/Hundeuniversitetet.webp" alt="Hundemodel" class="object-cover object-center w-full h-full hover:scale-105 transition duration-500">
                 </div>
             </div>
 
-            <!-- Højre side (Titel & Intro) -->
             <div class="mt-5 h-full flex flex-col justify-center fade-in-up" style="animation-delay: 0.1s;">
                 <div class="bg-dkkSand50 p-10 h-full flex flex-col justify-center border-l-4 border-dkkRed hover:bg-[#c4bdac] transition duration-300">
                     <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#35342d] mb-4" data-i18n="hero_title">Ansøgning: Hundemodel</h1>
@@ -183,7 +182,6 @@
     <main class="py-8 px-5 mb-10 max-w-screen-lg mx-auto">
         <div class="bg-white shadow-2xl overflow-hidden fade-in-up border-t-[6px] border-dkkRed relative">
             
-            <!-- Validation Error Alert -->
             <div id="errorAlert" class="hidden bg-red-50 border-l-4 border-dkkRed text-dkkRed p-4 mx-10 mt-10 rounded transition" role="alert">
                 <p class="font-bold" data-i18n="error_title">Hov, der mangler noget!</p>
                 <p class="text-sm" data-i18n="error_desc">Tjek de røde felter. Husk at e-mail skal være gyldig, og telefonnummeret skal være korrekt.</p>
@@ -197,37 +195,37 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="floating-input-group col-span-2">
-                            <input type="text" id="ownerName" required placeholder=" " class="floating-input">
+                            <input type="text" id="ownerName" required placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_name">Fulde navn</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
                         <div class="floating-input-group col-span-2">
-                            <input type="text" id="ownerAddress" required placeholder=" " class="floating-input">
+                            <input type="text" id="ownerAddress" required placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_address">Fulde Adresse</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
                         <div class="floating-input-group relative">
-                            <input type="email" id="ownerEmail" required placeholder=" " class="floating-input">
+                            <input type="email" id="ownerEmail" required placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_email">E-mailadresse</label>
                             <p class="text-xs text-gray-400 mt-1 pl-1" data-i18n="f_email_note">Eks. gmail.com, hotmail.com</p>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
                         <div class="floating-input-group relative">
-                            <input type="tel" id="ownerPhone" required placeholder=" " class="floating-input">
+                            <input type="tel" id="ownerPhone" required placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_phone">Telefonnummer</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
                         <div class="floating-input-group col-span-2 md:col-span-1">
-                            <input type="text" id="ownerSocials" placeholder=" " class="floating-input">
+                            <input type="text" id="ownerSocials" placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_socials">Sociale Medier (f.eks. Instagram)</label>
                         </div>
 
                         <div class="floating-input-group col-span-2 md:col-span-1">
-                            <input type="text" id="dkkMember" placeholder=" " class="floating-input">
+                            <input type="text" id="dkkMember" placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_dkk">DKK Medlemsnummer (Valgfrit)</label>
                         </div>
                     </div>
@@ -332,7 +330,6 @@
             <!-- Sponsor Logos -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:gap-5 gap-y-5 items-center my-10 grayscale hover:grayscale-0 transition duration-500 opacity-80">
                 <a href="https://www.dkk.dk/" class="mx-auto">
-                    <!-- Erstattede base64 SVG'en med det faktiske image-link for "Tryghed & Garanti" -->
                     <img src="https://www.dkk.dk/uploads/images/Tryghed_Garanti.png" alt="DKK Logo" class="h-16 w-16 lg:h-20 lg:w-20 object-contain">
                 </a>
                 <a href="https://www.fci.be/en/" target="_blank" class="mx-auto">
