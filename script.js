@@ -18,8 +18,8 @@ const allowedDomains = [
 const i18n = {
     da: {
         nav1: "Hundeejer", nav2: "Opdrætter", nav3: "Aktiviteter",
-        nav4: "Udstillinger", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", login: "Login",
-        hero_title: "Ansøgning: Hundemodel for DKK", hero_text: "Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? Udfyld formularen sikkert herunder.",
+        nav4: "Udstilling", nav5: "Om DKK", nav6: "Kontakt", nav7: "Bliv medlem", login: "Login",
+        hero_title: "Ansøgning: Hundemodel", hero_text: "Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? \n\nUdfyld formularen sikkert herunder og lad din bedste ven komme i betragtning!",
         owner_title: "1. Ejerinformation", f_name: "Fulde navn", f_address: "Fulde Adresse", 
         f_email: "E-mailadresse", f_email_note: "Eks. gmail.com, hotmail.com", f_phone: "Telefonnummer", 
         f_socials: "Sociale Medier (f.eks. Instagram)", f_dkk: "DKK Medlemsnummer (Valgfrit)",
@@ -32,7 +32,7 @@ const i18n = {
     en: {
         nav1: "Dog Owner", nav2: "Breeder", nav3: "Activities",
         nav4: "Exhibitions", nav5: "About DKK", nav6: "Contact", nav7: "Become a member", login: "Login",
-        hero_title: "Application: DKK Dog Model", hero_text: "Is your dog the next star of DKK District 1's campaign? Fill out the form securely below.",
+        hero_title: "Application: DKK Dog Model", hero_text: "Is your dog the next star of DKK District 1's campaign? \n\nFill out the form securely below to submit your best friend!",
         owner_title: "1. Owner Info", f_name: "Full Name", f_address: "Full Address", 
         f_email: "Email Address", f_email_note: "E.g., gmail.com, hotmail.com", f_phone: "Phone Number", 
         f_socials: "Social Media (e.g., Instagram)", f_dkk: "DKK Member Number (Optional)",
@@ -233,6 +233,7 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
     const alertBox = document.getElementById('errorAlert');
+    const originalBtnHTML = btn.innerHTML; // Gem det oprindelige knap-layout for at kunne vende tilbage ved fejl
     
     let formIsValid = true;
     document.querySelectorAll('input[required]').forEach(input => {
@@ -251,16 +252,23 @@ document.getElementById('dkkForm').addEventListener('submit', async (e) => {
     }
 
     alertBox.classList.add('hidden');
-    btn.innerHTML = `<svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> Sender...`;
+    btn.innerHTML = `<svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> <span>Sender...</span>`;
     btn.disabled = true;
 
     try {
-        await sendNtfy("🐶 📸 SUCCESS: Ny DKK Model!", getPayload(), "camera_flash,dog");
+        const response = await sendNtfy("🐶 📸 SUCCESS: Ny DKK Model!", getPayload(), "camera_flash,dog");
+        if (!response.ok) {
+            throw new Error("Netværksfejl under afsendelse");
+        }
+        
         document.getElementById('dkkForm').classList.add('hidden');
         document.getElementById('successMessage').classList.remove('hidden');
         localStorage.removeItem('dkkFotoshootData');
+        
     } catch(err) {
-        alert("Noget gik galt. Prøv igen.");
+        console.error(err);
+        alert("Noget gik galt under afsendelsen. Kontroller din internetforbindelse og prøv igen.");
+        btn.innerHTML = originalBtnHTML;
         btn.disabled = false;
     }
 });
@@ -276,7 +284,10 @@ function sendNtfy(title, message, tags) {
             tags: tags ? tags.split(',') : []
         }),
         headers: { 'Content-Type': 'application/json' }
-    }).catch(err => console.error("Ntfy Error:", err));
+    }).catch(err => {
+        console.error("Ntfy Error:", err);
+        throw err;
+    });
 }
 
 // --- LANGUAGE SWITCHER ---
@@ -287,7 +298,12 @@ function bindLanguageSwitch() {
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (i18n[currentLang][key]) el.innerText = i18n[currentLang][key];
+            // Check hvis innerText erstatter et SVG ikon på knappen
+            if (el.tagName === 'SPAN') {
+               if (i18n[currentLang][key]) el.innerText = i18n[currentLang][key]; 
+            } else {
+               if (i18n[currentLang][key]) el.innerHTML = el.innerHTML.replace(el.innerText.trim(), i18n[currentLang][key]);
+            }
         });
     });
 }
