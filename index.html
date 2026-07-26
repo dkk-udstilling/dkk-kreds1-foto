@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (CDN for matching DKK framework) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -20,58 +20,97 @@
                     colors: {
                         dkkRed: '#de0b25',
                         dkkSand: '#CCC6B6',
-                        dkkSand50: 'rgba(204, 198, 182, 0.5)',
-                        dkkBlue: 'rgba(142, 186, 194, 0.5)',
+                        dkkBg: '#f7f9fa',
                         textDark: '#111211'
                     }
                 }
             }
         }
     </script>
-    
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-white text-gray-800 overflow-x-hidden antialiased">
+<body class="bg-dkkBg text-gray-800 overflow-x-hidden antialiased">
 
-    <!-- DKK TOP MENU (Exact Replica) -->
-    <div class="relative flex mx-auto max-w-screen-2xl pt-5 px-5 border-b border-gray-100 pb-4">
+    <!-- EXACT DKK TOP BAR (ICONS & LINKS) -->
+    <div class="relative flex mx-auto lg:max-w-screen-2xl pt-5 px-5 pb-3">
         <div class="flex justify-between w-full items-center">
-            <div class="cursor-pointer flex gap-4 items-center group">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="22" viewBox="0 0 28 21.609">
-                    <g transform="translate(-146.5 -10.5)">
-                        <line x2="28" transform="translate(146.5 21.059)" fill="none" stroke="#de0b25" stroke-width="2"></line>
-                        <line x2="28" transform="translate(146.5 11.5)" fill="none" stroke="#de0b25" stroke-width="2"></line>
-                        <line x2="28" transform="translate(146.5 31.109)" fill="none" stroke="#de0b25" stroke-width="2"></line>
-                    </g>
+            <a href="https://www.dkk.dk" target="_blank" class="cursor-pointer flex gap-4 items-center group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="22" viewBox="0 0 28 21.609" class="group-hover:opacity-70 transition">
+                  <g transform="translate(-146.5 -10.5)">
+                    <line x2="28" transform="translate(146.5 21.059)" fill="none" stroke="#de0b25" stroke-width="2"></line>
+                    <line x2="28" transform="translate(146.5 11.5)" fill="none" stroke="#de0b25" stroke-width="2"></line>
+                    <line x2="28" transform="translate(146.5 31.109)" fill="none" stroke="#de0b25" stroke-width="2"></line>
+                  </g>
                 </svg>
-                <div class="text-dkkRed text-xs font-bold tracking-widest group-hover:underline" data-i18n="menu">MENU</div>
-            </div>
+                <div class="text-dkkRed text-xs font-bold tracking-wider group-hover:underline">MENU</div>
+            </a>
             
-            <ul class="text-gray-500 text-xs flex gap-7 font-semibold tracking-wide">
-                <li class="hidden md:flex items-center gap-2 hover:text-dkkRed cursor-pointer transition">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    <span data-i18n="login">Login</span>
+            <ul class="text-[#575244] text-xs font-semibold flex gap-7 items-center">
+                <li class="hidden md:block hover:text-dkkRed transition">
+                    <a href="https://www.hundeweb.dk/sso" target="_blank" class="flex items-center gap-2">
+                        <svg width="24" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 10V8C6 4.69 7 2 12 2C17 2 18 4.69 18 8V10" stroke="#E6485C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M12 18.5C13.3807 18.5 14.5 17.3807 14.5 16C14.5 14.6193 13.3807 13.5 12 13.5C10.6193 13.5 9.5 14.6193 9.5 16C9.5 17.3807 10.6193 18.5 12 18.5Z" stroke="#E6485C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M17 22H7C3 22 2 21 2 17V15C2 11 3 10 7 10H17C21 10 22 11 22 15V17C22 21 21 22 17 22Z" stroke="#E6485C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <span data-i18n="login">Login</span>
+                    </a>
                 </li>
-                <li class="hidden md:flex items-center gap-2 hover:text-dkkRed cursor-pointer transition">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10.5h-2.5m-13 0H3m14 4h-2m-10 0H3m5.5-8V3m5 3.5V3m-7.5 15A2.5 2.5 0 018 15.5c0-1.5 2-4 2-4s2 2.5 2 4a2.5 2.5 0 01-2.5 2.5zm7 0A2.5 2.5 0 0117 15.5c0-1.5 2-4 2-4s2 2.5 2 4a2.5 2.5 0 01-2.5 2.5z"></path></svg>
-                    Hundeweb
+                <li class="hidden md:block hover:text-dkkRed transition">
+                    <a href="https://www.hundeweb.dk" target="_blank" class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26.055" height="22" viewBox="0 0 26.055 26.055">
+                            <g transform="translate(-2070.377 -559.827)">
+                                <path d="M2070.877,572.855a12.528,12.528,0,1,1,12.528,12.527,12.528,12.528,0,0,1-12.528-12.527Z" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                                <path d="M2184.218,645.369h-.034c-4.287.021-4.122,4-4.122,4.6,0,1.326.4,5.714,4.122,5.741h.034c3.725-.027,4.122-4.415,4.122-5.741,0-.6.165-4.579-4.122-4.6Z" transform="translate(-100.804 -78.515)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                                <path d="M2184.184,645.369h.034c4.287.021,4.122,4,4.122,4.6,0,1.326-.4,5.714-4.122,5.741h-.034c-3.725-.027-4.122-4.415-4.122-5.741,0-.6-.165-4.579,4.122-4.6Z" transform="translate(-100.804 -78.515)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                                <path d="M2134.82,776.807a12.481,12.481,0,0,0,8.238-3.09V772.1a4.436,4.436,0,0,0-4.437-4.436h-1.307a3.492,3.492,0,0,1-2.485.955h-.034a3.491,3.491,0,0,1-2.485-.955H2131a4.436,4.436,0,0,0-4.436,4.436v1.6a12.479,12.479,0,0,0,8.253,3.1Z" transform="translate(-51.416 -191.425)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+                            </g>
+                        </svg>
+                        Hundeweb
+                    </a>
                 </li>
-                <li class="hidden md:flex items-center gap-2 text-dkkRed cursor-pointer transition" id="langSwitchBtn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"></path></svg>
-                    <span id="langLabel">English</span>
+                <li class="hidden md:block hover:text-dkkRed transition cursor-pointer" id="langSwitchBtn">
+                    <div class="flex items-center gap-2">
+                        <svg width="22.648" height="22.648" viewBox="0 0 22.648 22.648">
+                            <path d="M271.758,333.592a11.359,11.359,0,1,0,.89,4.408A11.285,11.285,0,0,0,271.758,333.592Zm-9.975-.241V327.62a5.884,5.884,0,0,1,4.11,2.946,11.1,11.1,0,0,1,.961,1.874A16.135,16.135,0,0,1,261.783,333.351Zm5.382-.052a15.194,15.194,0,0,1,.7,4.241h-6.083V334.27a17.348,17.348,0,0,0,4.527-.688C266.6,333.5,266.885,333.4,267.165,333.3Zm.54-1.205a12.017,12.017,0,0,0-1.039-2.026,9.082,9.082,0,0,0-1.394-1.7,10.467,10.467,0,0,1,3.963,2.875A10.319,10.319,0,0,1,267.7,332.094Zm-5.921,9.636v-3.271h6.083a15.194,15.194,0,0,1-.7,4.24A17.1,17.1,0,0,0,261.783,341.73Zm5.071,1.831a11.112,11.112,0,0,1-.96,1.872,5.884,5.884,0,0,1-4.11,2.946v-5.732A16.15,16.15,0,0,1,266.854,343.561Zm-.189,2.37a12.014,12.014,0,0,0,1.039-2.025,10.337,10.337,0,0,1,1.531.846,10.466,10.466,0,0,1-3.963,2.875A9.08,9.08,0,0,0,266.665,345.931Zm5.054-7.472a10.338,10.338,0,0,1-1.918,5.569,11.232,11.232,0,0,0-1.783-.985,16.093,16.093,0,0,0,.766-4.584Zm0-.918h-2.935a16.089,16.089,0,0,0-.767-4.585,11.316,11.316,0,0,0,1.784-.983A10.336,10.336,0,0,1,271.72,337.541Zm-17.086,5.514a11.275,11.275,0,0,0-1.778.985,10.337,10.337,0,0,1-1.927-5.581h2.935A16.089,16.089,0,0,0,254.634,343.055Zm-3.705-5.514a10.337,10.337,0,0,1,1.927-5.581,11.275,11.275,0,0,0,1.778.985,16.088,16.088,0,0,0-.77,4.6Zm9.937,5.108v5.731a5.884,5.884,0,0,1-4.11-2.946,11.1,11.1,0,0,1-.958-1.866A16.107,16.107,0,0,1,260.865,342.649Zm-5.379.06a15.188,15.188,0,0,1-.7-4.25h6.083v3.272a17.338,17.338,0,0,0-4.513.691C256.06,342.509,255.769,342.605,255.486,342.709Zm-.539,1.206a12.013,12.013,0,0,0,1.035,2.016,9.075,9.075,0,0,0,1.394,1.7,10.466,10.466,0,0,1-3.954-2.864A10.283,10.283,0,0,1,254.947,343.915Zm5.918-16.3v5.731a16.106,16.106,0,0,1-5.068-.919,11.1,11.1,0,0,1,.958-1.866A5.884,5.884,0,0,1,260.865,327.62Zm-4.882,2.449a12.013,12.013,0,0,0-1.035,2.016,10.281,10.281,0,0,1-1.525-.848,10.466,10.466,0,0,1,3.954-2.864A9.081,9.081,0,0,0,255.983,330.068Zm-.5,3.223c.283.1.574.2.866.287a17.335,17.335,0,0,0,4.513.691v3.272h-6.083A15.188,15.188,0,0,1,255.486,333.291Z" transform="translate(-250 -326.676)" fill="#de0b25"></path>
+                        </svg>
+                        <span id="langLabel">English</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="https://www.dkk.dk/shop" target="_blank" class="flex items-center gap-2 hover:text-dkkRed transition">
+                        <svg width="31.728" height="22" viewBox="0 0 31.728 25.891">
+                            <g transform="translate(-1729.306 -703.934)">
+                                <g transform="translate(1730.056 704.972)">
+                                    <path d="M190.1,180.308h4.821a.964.964,0,0,1,.964.964v2.892a.964.964,0,0,1-.964.964h-27.96a.964.964,0,0,1-.964-.964v-2.892a.964.964,0,0,1,.964-.964h4.821" transform="translate(-166 -174.523)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                                    <path d="M196.677,180.308H188" transform="translate(-177.395 -174.523)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                                    <path d="M196.031,190.308l-2.159,11.863a1.928,1.928,0,0,1-1.906,1.635h-17.9a1.928,1.928,0,0,1-1.906-1.635L170,190.308" transform="translate(-168.072 -179.703)" fill="none" stroke="#de0b25" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                                </g>
+                            </g>
+                        </svg>
+                        Shop
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.dkk.dk/search" target="_blank" class="hover:opacity-70 transition">
+                        <svg width="22" height="22" viewBox="0 0 22 22">
+                            <g transform="translate(4.424 2.13)"><path d="M.31.619A7.723,7.723,0,0,0,8.032-7.1,7.723,7.723,0,0,0,.31-14.827,7.723,7.723,0,0,0-7.413-7.1,7.723,7.723,0,0,0,.31.619Z" transform="translate(7.413 14.827)" fill="none" stroke="#de0b25" stroke-width="2"></path></g>
+                            <g transform="translate(0.406 14.705)"><path d="M.882,0l-6.89,6.89" transform="translate(6.008)" fill="none" stroke="#de0b25" stroke-width="2"></path></g>
+                        </svg>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 
     <!-- MAIN MENU WITH EXACT LOGO -->
-    <div class="shadow-sm mb-10 bg-white sticky top-0 z-50">
+    <div class="shadow-lg mb-10 bg-white sticky top-0 z-50">
         <div class="relative flex mx-auto max-w-screen-2xl px-5 pb-6 pt-5">
             <div class="flex justify-center md:justify-between w-full items-center">
                 <div class="hidden xl:flex gap-10 font-bold text-gray-700 text-lg">
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav1">Hundeejer</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav2">Opdrætter</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav3">Aktiviteter</a>
+                    <a href="https://www.dkk.dk/hundeejer" target="_blank" class="hover:text-dkkRed transition" data-i18n="nav1">Hundeejer</a>
+                    <a href="https://www.dkk.dk/alle-emner/opdræt" target="_blank" class="hover:text-dkkRed transition" data-i18n="nav2">Opdrætter</a>
+                    <a href="https://www.dkk.dk/kurser-prover-og-traening/aktiviteter-med-din-hund" target="_blank" class="hover:text-dkkRed transition" data-i18n="nav3">Aktiviteter</a>
                 </div>
                 
                 <!-- EXACT DKK LOGO SVG -->
@@ -97,40 +136,40 @@
                 </a>
 
                 <div class="hidden xl:flex gap-10 font-bold text-gray-700 text-lg">
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav4">Udstillinger</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav5">Om DKK</a>
-                    <a href="#" class="hover:text-dkkRed transition" data-i18n="nav6">Kontakt</a>
+                    <a href="https://www.dkk.dk/udstillinger-og-events/deltag-i-udstillinger" target="_blank" class="hover:text-dkkRed transition" data-i18n="nav4">Udstillinger</a>
+                    <a href="https://www.dkk.dk/om-dkk/om-dkk" target="_blank" class="hover:text-dkkRed transition" data-i18n="nav5">Om DKK</a>
+                    <a href="https://www.dkk.dk/medlemskab/bliv-medlem" target="_blank" class="hover:text-dkkRed transition" data-i18n="nav7">Bliv medlem</a>
+                    <a href="https://www.dkk.dk/kontakt" target="_blank" class="hover:text-dkkRed transition" data-i18n="nav6">Kontakt</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- MAIN FORM SECTION -->
-    <main class="bg-dkkBlue py-16 px-5 mb-10">
-        <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden fade-in-up">
+    <main class="py-8 px-5 mb-10">
+        <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden fade-in-up border-t-4 border-dkkRed">
             
-            <!-- Form Hero Header -->
             <div class="bg-dkkSand50 p-10 text-center relative overflow-hidden">
-                <h1 class="text-4xl font-extrabold text-[#43585a] mb-4" data-i18n="hero_title">DKK Hundemodel Ansøgning</h1>
-                <p class="text-lg text-gray-700 max-w-2xl mx-auto" data-i18n="hero_text">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-[#43585a] mb-4" data-i18n="hero_title">Ansøgning: Hundemodel for DKK</h1>
+                <p class="text-lg text-gray-700 max-w-2xl mx-auto font-medium" data-i18n="hero_text">
                     Er din hund den næste stjerne i DKK Kreds 1's kampagnemateriale? Udfyld formularen sikkert herunder.
                 </p>
-                <div class="w-16 h-1 bg-dkkRed mx-auto mt-6"></div>
+                <div class="w-20 h-1 bg-dkkRed mx-auto mt-6"></div>
             </div>
 
             <!-- Validation Error Alert -->
-            <div id="errorAlert" class="hidden bg-red-100 border-l-4 border-dkkRed text-dkkRed p-4 mx-10 mt-6 rounded" role="alert">
+            <div id="errorAlert" class="hidden bg-red-100 border-l-4 border-dkkRed text-dkkRed p-4 mx-10 mt-6 rounded transition" role="alert">
                 <p class="font-bold" data-i18n="error_title">Hov, der mangler noget!</p>
-                <p class="text-sm" data-i18n="error_desc">Tjek venligst e-mail (kun store domæner tilladt) og telefonnummer.</p>
+                <p class="text-sm" data-i18n="error_desc">Tjek de røde felter. Husk at e-mail skal være gyldig, og telefonnummeret skal være korrekt.</p>
             </div>
 
-            <form id="dkkForm" class="p-10 space-y-8" autocomplete="off" novalidate>
+            <form id="dkkForm" class="p-10 space-y-10" autocomplete="off" novalidate>
                 
                 <!-- OWNER INFO -->
                 <section>
                     <h2 class="text-2xl font-bold text-[#43585a] border-b-2 border-dkkSand pb-2 mb-6" data-i18n="owner_title">1. Ejerinformation</h2>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="floating-input-group col-span-2">
                             <input type="text" id="ownerName" required placeholder=" " class="floating-input">
                             <label class="floating-label" data-i18n="f_name">Fulde navn</label>
@@ -146,13 +185,13 @@
                         <div class="floating-input-group relative">
                             <input type="email" id="ownerEmail" required placeholder=" " class="floating-input">
                             <label class="floating-label" data-i18n="f_email">E-mailadresse</label>
-                            <p class="text-xs text-gray-400 mt-1" data-i18n="f_email_note">Eks. gmail.com, hotmail.com, mail.dk</p>
+                            <p class="text-xs text-gray-400 mt-1 pl-1" data-i18n="f_email_note">Eks. gmail.com, hotmail.com</p>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
                         <div class="floating-input-group relative">
                             <input type="tel" id="ownerPhone" required placeholder=" " class="floating-input">
-                            <label class="floating-label" data-i18n="f_phone">Telefonnummer (+45...)</label>
+                            <label class="floating-label" data-i18n="f_phone">Telefonnummer</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
@@ -174,18 +213,18 @@
                         <h2 class="text-2xl font-bold text-[#43585a]" data-i18n="dog_title">2. Hundeinformation</h2>
                     </div>
                     
-                    <div id="dogsContainer" class="space-y-6">
+                    <div id="dogsContainer" class="space-y-8">
                         <!-- Dogs injected by JS -->
                     </div>
 
-                    <button type="button" id="addDogBtn" class="mt-6 w-full py-4 border-2 border-dashed border-gray-300 text-gray-500 font-semibold rounded hover:border-dkkRed hover:text-dkkRed transition duration-200 flex items-center justify-center gap-2">
+                    <button type="button" id="addDogBtn" class="mt-8 w-full py-4 border-2 border-dashed border-gray-300 text-gray-500 font-semibold rounded hover:border-dkkRed hover:bg-red-50 hover:text-dkkRed transition duration-200 flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         <span data-i18n="btn_add_dog">Tilføj endnu en hund</span>
                     </button>
                 </section>
 
                 <!-- SUBMIT -->
-                <div class="pt-6 border-t border-gray-200">
+                <div class="pt-8 border-t border-gray-200">
                     <button type="submit" id="submitBtn" class="w-full bg-dkkRed text-white font-bold text-xl py-5 rounded shadow-lg hover:bg-red-700 transition duration-300 flex items-center justify-center gap-3">
                         <span data-i18n="btn_submit">Send Ansøgning</span>
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -193,7 +232,7 @@
                     
                     <div id="successMessage" class="hidden mt-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-6 rounded shadow-sm text-center">
                         <h3 class="font-bold text-xl" data-i18n="success_title">Tak for din ansøgning!</h3>
-                        <p class="mt-2" data-i18n="success_desc">Dine informationer er sendt sikkert afsted til DKK Kreds 1.</p>
+                        <p class="mt-2 font-medium" data-i18n="success_desc">Dine informationer er sendt sikkert afsted til DKK Kreds 1.</p>
                     </div>
                 </div>
 
@@ -202,13 +241,12 @@
     </main>
 
     <!-- FOOTER SPONSORS EXACT MATCH -->
-    <section class="max-w-screen-xl mx-auto py-10 px-5 flex flex-wrap justify-center items-center gap-10 lg:gap-20 opacity-60 grayscale hover:grayscale-0 transition duration-500">
+    <section class="max-w-screen-xl mx-auto pb-10 px-5 flex flex-wrap justify-center items-center gap-10 lg:gap-20 opacity-70 grayscale hover:grayscale-0 transition duration-500">
         
-        <!-- FCI -->
-        <a href="http://www.fci.be/en/"><img src="https://www.dkk.dk/static/img/fci.png" alt="FCI" class="h-16 lg:h-20"></a>
+        <a href="https://www.fci.be/en/" target="_blank"><img src="https://www.dkk.dk/static/img/fci.png" alt="FCI" class="h-16 lg:h-20"></a>
         
         <!-- AGRIA SVG -->
-        <a href="https://www.agria.dk/hund/hundeforsikring/">
+        <a href="https://www.agria.dk/hund/hundeforsikring/" target="_blank">
             <svg width="200" height="65" viewBox="0 0 284 93" fill="none" class="h-12 lg:h-16">
                  <path d="M87.35 22.58C72.57 22.27 62.76 32.4 62.76 48.1C62.76 63.8 70.41 74.35 81.98 74.35C85.49 74.35 89.52 73.42 92.42 71.25L93.04 70.79C93.87 76.64 88.15 80.88 82.92 80.88C78.22 80.88 73.88 79.25 70.07 76.66L65 86.26C71.26 90.79 78.23 92.35 83.85 92.35C92.43 92.35 105.66 88.53 105.66 67.96V27.13C99.87 24.34 93.67 22.58 87.37 22.58H87.35ZM76.4 48.1C76.4 39.94 80.33 34.46 85.91 34.46C87.98 34.46 90.15 34.77 92.32 35.49V59.36C89.74 61.53 87.05 61.94 85.19 61.94C79.82 61.94 76.41 57.08 76.41 48.09L76.4 48.1Z" fill="#005CA9"></path>
                  <path d="M43.5 61.52H19.68L15.33 73.54H0V71.47L27.96 0.309998H35.32L63.18 71.47V73.54H47.95L43.5 61.52ZM27.45 39.31L24.23 49.34H38.85L35.53 39.21L31.6 26.21L27.46 39.31H27.45Z" fill="#005CA9"></path>
@@ -222,7 +260,7 @@
         </a>
         
         <!-- ROYAL CANIN SVG -->
-        <a href="http://www.royalcanin.dk/">
+        <a href="http://www.royalcanin.dk/" target="_blank">
             <svg width="150" height="65" viewBox="0 0 401 178" fill="none" class="h-12 lg:h-16">
                 <g clip-path="url(#clip0_0_3)">
                     <path d="M322.77 144.16C322.77 147.06 325.12 149.41 328.02 149.41C330.92 149.41 333.27 147.06 333.27 144.16V107.78C333.27 104.88 330.92 102.53 328.02 102.53C325.12 102.53 322.77 104.88 322.77 107.78V144.16Z" fill="#E30613"></path>
