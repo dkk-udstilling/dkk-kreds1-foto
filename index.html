@@ -251,31 +251,31 @@
     <main class="py-12 px-5 mb-10 max-w-screen-lg mx-auto">
         <div class="bg-white shadow-2xl overflow-hidden fade-in-up border-t-[6px] border-dkkRed relative">
             
-            <div id="errorAlert" class="hidden bg-red-50 border-l-4 border-dkkRed text-dkkRed p-4 mx-10 mt-10 rounded transition" role="alert">
+            <div id="errorAlert" class="hidden bg-red-50 border-l-4 border-dkkRed text-dkkRed p-4 mx-5 mt-5 md:mx-10 md:mt-10 rounded transition" role="alert">
                 <p class="font-bold" data-i18n="error_title">Hov, der mangler noget!</p>
                 <p class="text-sm" data-i18n="error_desc">Tjek de røde felter. Husk at e-mail skal være gyldig, telefonnummeret skal være korrekt, og privatlivspolitikken skal accepteres.</p>
             </div>
 
-            <form id="dkkForm" class="p-10 space-y-12" autocomplete="off" novalidate>
+            <form id="dkkForm" class="p-6 md:p-10 space-y-12" autocomplete="off" novalidate>
                 
                 <!-- 1. OWNER INFO -->
                 <section>
                     <h2 class="text-2xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-8" data-i18n="owner_title">1. Ejerinformation</h2>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="floating-input-group col-span-2 md:col-span-1">
+                        <div class="floating-input-group col-span-1 md:col-span-1">
                             <input type="text" id="ownerName" required placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_name">Fulde navn</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
-                        <div class="floating-input-group col-span-2 md:col-span-1">
+                        <div class="floating-input-group col-span-1 md:col-span-1">
                             <input type="text" id="ownerAddress" required placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_address">Postnr. og By</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
-                        <div class="floating-input-group relative">
+                        <div class="floating-input-group col-span-1 md:col-span-1 relative">
                             <input type="email" id="ownerEmail" required placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_email">E-mailadresse</label>
                             <p class="text-xs text-gray-400 mt-1 pl-1" data-i18n="f_email_note">Eks. gmail.com, hotmail.com</p>
@@ -283,14 +283,14 @@
                         </div>
 
                         <!-- Masked Phone Input -->
-                        <div class="floating-input-group relative">
+                        <div class="floating-input-group col-span-1 md:col-span-1 relative">
                             <input type="tel" id="ownerPhone" required placeholder=" " class="floating-input track-input" dir="ltr">
                             <label class="floating-label" data-i18n="f_phone">Telefonnummer</label>
                             <svg class="valid-icon w-6 h-6 text-green-500 absolute right-3 top-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
 
                         <!-- Social Media Dynamic Fields -->
-                        <div class="col-span-2">
+                        <div class="col-span-1 md:col-span-2">
                             <div class="flex justify-between items-center mb-4">
                                 <label class="text-sm font-semibold text-gray-700" data-i18n="f_socials">Sociale Medier</label>
                                 <span id="socialCountDisplay" class="text-sm font-bold text-gray-400">1/5</span>
@@ -304,12 +304,12 @@
                             </button>
                         </div>
 
-                        <div class="floating-input-group col-span-2">
+                        <div class="floating-input-group col-span-1 md:col-span-2">
                             <input type="text" id="dkkMember" placeholder=" " class="floating-input track-input">
                             <label class="floating-label" data-i18n="f_dkk">DKK Medlemsnummer (Valgfrit)</label>
                         </div>
 
-                        <div class="floating-input-group col-span-2">
+                        <div class="floating-input-group col-span-1 md:col-span-2">
                             <textarea id="ownerDescription" placeholder=" " class="floating-input track-input h-32 resize-none"></textarea>
                             <label class="floating-label" data-i18n="f_desc">Kort beskrivelse af dig selv</label>
                         </div>
@@ -498,7 +498,7 @@
                 </div>
             </div>
 
-            <!-- Sponsor Logos - All base64 removed, replaced with legitimate URL Links -->
+            <!-- Sponsor Logos -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:gap-5 gap-y-5 items-center my-10 grayscale hover:grayscale-0 transition duration-500 opacity-80">
                 <a href="https://www.dkk.dk" class="mx-auto">
                     <img src="https://www.dkk.dk/uploads/images/Tryghed_Garanti.png" alt="DKK Logo" class="h-16 w-16 lg:h-20 lg:w-20 object-contain">
